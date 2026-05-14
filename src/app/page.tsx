@@ -147,29 +147,15 @@ export default function Home() {
     <div className="min-h-screen bg-[linear-gradient(180deg,#fffdf9_0%,#f7f4ec_100%)]">
       <div className="flex min-h-screen flex-col">
         <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/92 backdrop-blur-md">
-          <div className="flex w-full items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-            <div className="flex items-center gap-3 sm:gap-4">
-              <Image
-                src="/paletparrot-mark.png"
-                alt="PaletParrot icon"
-                width={41}
-                height={50}
-                className="h-10 w-auto sm:h-11 md:h-12"
-                preload
-              />
-              <Image
-                src="/paletparrot-logotype.png"
-                alt="PaletParrot"
-                width={228}
-                height={50}
-                className="h-8 w-auto sm:h-9 md:h-10"
-                preload
-              />
-            </div>
-            <div className="hidden items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500 sm:flex">
-              <Sparkles className="h-3.5 w-3.5 text-[var(--brand-red)]" />
-              Light palette workspace
-            </div>
+          <div className="flex w-full items-center px-4 py-4 sm:px-6 lg:px-8">
+            <Image
+              src="/logo-header.png"
+              alt="PaletParrot"
+              width={400}
+              height={100}
+              className="h-10 w-auto sm:h-11 md:h-12"
+              preload
+            />
           </div>
         </header>
 
@@ -182,12 +168,12 @@ export default function Home() {
               </div>
 
               <div className="grid gap-8 xl:grid-cols-[minmax(0,1.2fr)_minmax(300px,0.8fr)]">
-                <div className="space-y-5">
-                  <div className="space-y-4">
-                    <h1 className="font-display max-w-5xl text-4xl font-semibold leading-[0.95] text-slate-950 sm:text-5xl lg:text-6xl xl:text-7xl">
+                <div className="space-y-5 text-center">
+                  <div className="mx-auto space-y-4">
+                    <h1 className="font-display mx-auto max-w-5xl text-4xl font-semibold leading-[0.95] text-slate-950 sm:text-5xl lg:text-6xl xl:text-7xl">
                       Clean color extraction for designers, developers, and brand teams.
                     </h1>
-                    <p className="max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
+                    <p className="mx-auto max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
                       Drop in an image, pull out the colors you need, rename them clearly, and export the palette in the format your workflow already uses.
                     </p>
                   </div>
