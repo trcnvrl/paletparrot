@@ -60,6 +60,7 @@ export function normalizeColor(rgb: [number, number, number], population?: numbe
   const cmyk = rgbToCmyk(r, g, b);
 
   return {
+    label: '',
     hex,
     rgb: { r, g, b },
     cmyk,

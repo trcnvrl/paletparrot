@@ -11,6 +11,26 @@ import { ExportActions } from '@/components/export-actions';
 import type { UploadedImage, ExtractedColor, ExtractionMode } from '@/lib/types';
 import { extractColorsAuto, extractColorsManual } from '@/lib/color-extraction';
 
+function withDefaultLabels(colors: ExtractedColor[]): ExtractedColor[] {
+  return colors.map((color, index) => ({
+    ...color,
+    label: color.label?.trim() || `color-${index + 1}`,
+  }));
+}
+
+function getNextDefaultLabel(colors: ExtractedColor[]): string {
+  const highestUsedIndex = colors.reduce((highest, color) => {
+    const match = color.label.match(/^color-(\d+)$/);
+    if (!match) {
+      return highest;
+    }
+
+    return Math.max(highest, Number.parseInt(match[1], 10));
+  }, 0);
+
+  return `color-${highestUsedIndex + 1}`;
+}
+
 export default function Home() {
   const [uploadedImage, setUploadedImage] = useState<UploadedImage | null>(null);
   const [extractionMode, setExtractionMode] = useState<ExtractionMode>('manual');
@@ -38,8 +58,22 @@ export default function Home() {
   }, []);
 
   const handlePickColor = useCallback((color: ExtractedColor) => {
-    setExtractedColors((currentColors) => [...currentColors, color]);
+    setExtractedColors((currentColors) => [
+      ...currentColors,
+      {
+        ...color,
+        label: getNextDefaultLabel(currentColors),
+      },
+    ]);
     setError(null);
+  }, []);
+
+  const handleLabelChange = useCallback((indexToUpdate: number, label: string) => {
+    setExtractedColors((currentColors) =>
+      currentColors.map((color, index) =>
+        index === indexToUpdate ? { ...color, label } : color
+      )
+    );
   }, []);
 
   const handleRemoveColor = useCallback((indexToRemove: number) => {
@@ -63,7 +97,7 @@ export default function Home() {
         colors = await extractColorsManual(uploadedImage.src, colorCount);
       }
 
-      setExtractedColors(colors);
+      setExtractedColors(withDefaultLabels(colors));
     } catch (err) {
       console.error('Color extraction failed:', err);
       setError('Failed to extract colors. Please try a different image.');
@@ -148,7 +182,11 @@ export default function Home() {
         {/* Palette Display */}
         {extractedColors.length > 0 && (
           <div className="pt-8">
-            <PaletteGrid colors={extractedColors} onRemoveColor={handleRemoveColor} />
+            <PaletteGrid
+              colors={extractedColors}
+              onLabelChange={handleLabelChange}
+              onRemoveColor={handleRemoveColor}
+            />
           </div>
         )}
       </main>

@@ -3,6 +3,12 @@ import jsPDF from 'jspdf';
 import type { ExtractedColor } from './types';
 import { formatRgb, formatCmyk } from './color-utils';
 
+interface ExportToken {
+  key: string;
+  hex: string;
+  label: string;
+}
+
 async function renderExportCanvas(elementId: string): Promise<HTMLCanvasElement> {
   const element = document.getElementById(elementId);
   if (!element) {
@@ -46,6 +52,54 @@ function downloadBlob(blob: Blob, filename: string): void {
   link.click();
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
+}
+
+function sanitizeLabel(label: string): string {
+  const sanitized = label
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+  return sanitized || 'color';
+}
+
+function buildExportTokens(colors: ExtractedColor[]): ExportToken[] {
+  const usedKeys = new Map<string, number>();
+
+  return colors.map((color, index) => {
+    const baseKey = sanitizeLabel(color.label || `color-${index + 1}`);
+    const count = (usedKeys.get(baseKey) ?? 0) + 1;
+    usedKeys.set(baseKey, count);
+
+    return {
+      key: count === 1 ? baseKey : `${baseKey}-${count}`,
+      hex: color.hex,
+      label: color.label || `color-${index + 1}`,
+    };
+  });
+}
+
+export function getCodeExportPreview(
+  colors: ExtractedColor[],
+  format: 'css' | 'scss' | 'tailwind'
+): string {
+  const tokens = buildExportTokens(colors);
+
+  switch (format) {
+    case 'css':
+      return `:root {\n${tokens
+        .map((token) => `  --color-${token.key}: ${token.hex};`)
+        .join('\n')}\n}`;
+    case 'scss':
+      return tokens
+        .map((token) => `$color-${token.key}: ${token.hex};`)
+        .join('\n');
+    case 'tailwind':
+      return `const colors = {\n${tokens
+        .map((token) => `  '${token.key}': '${token.hex}',`)
+        .join('\n')}\n};\n\nexport default colors;`;
+  }
 }
 
 /**
@@ -159,6 +213,17 @@ export function exportAsHtml(colors: ExtractedColor[], filename: string = 'chrom
       gap: 0.25rem;
       font-size: 0.875rem;
     }
+    .color-label {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 0.25rem 0.625rem;
+      border-radius: 9999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: lowercase;
+    }
     .color-value {
       display: flex;
       justify-content: space-between;
@@ -186,6 +251,7 @@ export function exportAsHtml(colors: ExtractedColor[], filename: string = 'chrom
         <div class="swatch">
           <div class="color-block" style="background-color: ${color.hex};"></div>
           <div class="color-info">
+            <span class="color-label">${color.label}</span>
             <div class="color-value">
               <strong>HEX</strong>
               <span>${color.hex}</span>
@@ -210,5 +276,23 @@ export function exportAsHtml(colors: ExtractedColor[], filename: string = 'chrom
 </html>`;
 
   const blob = new Blob([htmlContent], { type: 'text/html' });
+  downloadBlob(blob, filename);
+}
+
+export function exportAsCss(colors: ExtractedColor[], filename: string = 'chromasnap-palette.css'): void {
+  const content = `${getCodeExportPreview(colors, 'css')}\n`;
+  const blob = new Blob([content], { type: 'text/css' });
+  downloadBlob(blob, filename);
+}
+
+export function exportAsScss(colors: ExtractedColor[], filename: string = 'chromasnap-palette.scss'): void {
+  const content = `${getCodeExportPreview(colors, 'scss')}\n`;
+  const blob = new Blob([content], { type: 'text/x-scss' });
+  downloadBlob(blob, filename);
+}
+
+export function exportAsTailwind(colors: ExtractedColor[], filename: string = 'chromasnap-tailwind-colors.js'): void {
+  const content = `${getCodeExportPreview(colors, 'tailwind')}\n`;
+  const blob = new Blob([content], { type: 'text/javascript' });
   downloadBlob(blob, filename);
 }

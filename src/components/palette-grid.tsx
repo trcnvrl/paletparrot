@@ -6,10 +6,11 @@ import { formatRgb, formatCmyk } from '@/lib/color-utils';
 
 interface PaletteGridProps {
   colors: ExtractedColor[];
+  onLabelChange?: (index: number, label: string) => void;
   onRemoveColor?: (index: number) => void;
 }
 
-export function PaletteGrid({ colors, onRemoveColor }: PaletteGridProps) {
+export function PaletteGrid({ colors, onLabelChange, onRemoveColor }: PaletteGridProps) {
   if (colors.length === 0) {
     return null;
   }
@@ -34,6 +35,8 @@ export function PaletteGrid({ colors, onRemoveColor }: PaletteGridProps) {
             <ColorSwatchCard
               key={`${color.hex}-${index}`}
               color={color}
+              suggestionsId={`color-label-suggestions-${index}`}
+              onLabelChange={onLabelChange ? (label) => onLabelChange(index, label) : undefined}
               onRemove={onRemoveColor ? () => onRemoveColor(index) : undefined}
             />
           ))}
@@ -68,6 +71,22 @@ export function PaletteGrid({ colors, onRemoveColor }: PaletteGridProps) {
                   }}
                 />
                 <div style={{ fontSize: '13px', lineHeight: '1.6' }}>
+                  <div style={{ marginBottom: '8px' }}>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        padding: '4px 10px',
+                        borderRadius: '999px',
+                        backgroundColor: '#eff6ff',
+                        color: '#1d4ed8',
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        textTransform: 'lowercase'
+                      }}
+                    >
+                      {color.label}
+                    </span>
+                  </div>
                   <div style={{ marginBottom: '4px', color: '#6b7280' }}>
                     <strong style={{ color: '#374151' }}>HEX:</strong> {color.hex}
                   </div>

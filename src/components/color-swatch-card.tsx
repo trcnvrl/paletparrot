@@ -7,10 +7,25 @@ import { formatRgb, formatCmyk } from '@/lib/color-utils';
 
 interface ColorSwatchCardProps {
   color: ExtractedColor;
+  suggestionsId: string;
+  onLabelChange?: (label: string) => void;
   onRemove?: () => void;
 }
 
-export function ColorSwatchCard({ color, onRemove }: ColorSwatchCardProps) {
+const COMMON_LABELS = [
+  'primary',
+  'secondary',
+  'accent',
+  'background',
+  'surface',
+  'text',
+  'border',
+  'success',
+  'warning',
+  'error',
+];
+
+export function ColorSwatchCard({ color, suggestionsId, onLabelChange, onRemove }: ColorSwatchCardProps) {
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
   const rgbValue = formatRgb(color.rgb);
   const cmykValue = formatCmyk(color.cmyk);
@@ -42,7 +57,27 @@ export function ColorSwatchCard({ color, onRemove }: ColorSwatchCardProps) {
           </button>
         )}
       </div>
-      
+
+      <div className="space-y-1">
+        <label className="block text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          Label
+        </label>
+        <input
+          type="text"
+          list={suggestionsId}
+          value={color.label}
+          onChange={(event) => onLabelChange?.(event.target.value)}
+          className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 outline-none transition-colors focus:border-blue-500 dark:focus:border-blue-400"
+          placeholder="primary"
+          aria-label={`Label for ${color.hex}`}
+        />
+        <datalist id={suggestionsId}>
+          {COMMON_LABELS.map((label) => (
+            <option key={label} value={label} />
+          ))}
+        </datalist>
+      </div>
+
       <div className="space-y-1.5 text-sm">
         <div className="flex items-center justify-between px-2 py-1.5 bg-gray-50 dark:bg-gray-800 rounded">
           <span className="font-medium text-gray-600 dark:text-gray-400">HEX</span>
