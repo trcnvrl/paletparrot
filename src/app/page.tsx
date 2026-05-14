@@ -153,7 +153,7 @@ export default function Home() {
               alt="PaletParrot"
               width={400}
               height={100}
-              className="h-10 w-auto sm:h-11 md:h-12"
+              className="h-14 w-auto sm:h-16 md:h-[72px]"
               preload
             />
           </div>
