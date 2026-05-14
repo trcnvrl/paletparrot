@@ -277,11 +277,8 @@ export default function Home() {
         </main>
 
         <footer className="mt-auto border-t border-slate-200 bg-white/80">
-          <div className="flex w-full flex-col gap-3 px-4 py-5 text-center sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:text-left">
-            <p className="text-sm text-slate-600">Built with Next.js, TypeScript, and Tailwind CSS</p>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-              Upload image • Extract colors • Export palette
-            </p>
+          <div className="px-4 py-5 text-center sm:px-6 lg:px-8">
+            <p className="text-sm text-slate-500">© 2026 PaletParrot</p>
           </div>
         </footer>
       </div>
