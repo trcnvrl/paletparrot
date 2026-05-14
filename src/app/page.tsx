@@ -160,89 +160,42 @@ export default function Home() {
         </header>
 
         <main className="flex w-full flex-1 flex-col gap-8 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
-          <section className="panel grid gap-8 overflow-hidden px-5 py-6 sm:px-7 sm:py-7 xl:grid-cols-[minmax(0,1.55fr)_minmax(360px,0.85fr)] xl:items-start">
-            <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-strong)] bg-[color:var(--surface-soft)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-slate-600">
-                <Sparkles className="h-4 w-4 text-[var(--brand-red)]" />
-                Upload, extract, label, export
+          <section className="panel overflow-hidden px-5 py-6 sm:px-7 sm:py-7">
+            <div className="mx-auto max-w-6xl space-y-8">
+              <div className="text-center">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-strong)] bg-[color:var(--surface-soft)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-slate-600">
+                  <Sparkles className="h-4 w-4 text-[var(--brand-red)]" />
+                  Upload, extract, label, export
+                </div>
               </div>
 
-              <div className="grid gap-8 xl:grid-cols-[minmax(0,1.2fr)_minmax(300px,0.8fr)]">
-                <div className="space-y-5 text-center">
-                  <div className="mx-auto space-y-4">
-                    <h1 className="font-display mx-auto max-w-5xl text-4xl font-semibold leading-[0.95] text-slate-950 sm:text-5xl lg:text-6xl xl:text-7xl">
-                      Clean color extraction for designers, developers, and brand teams.
-                    </h1>
-                    <p className="mx-auto max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
-                      Drop in an image, pull out the colors you need, rename them clearly, and export the palette in the format your workflow already uses.
-                    </p>
-                  </div>
-
-                  <div className="grid gap-4 md:grid-cols-3">
-                    <div className="subpanel space-y-2 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Modes</p>
-                      <p className="font-display text-3xl text-slate-950">3</p>
-                      <p className="text-sm leading-6 text-slate-600">Auto-detect, manual extraction, and eyedropper picking.</p>
-                    </div>
-                    <div className="subpanel space-y-2 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Exports</p>
-                      <p className="font-display text-3xl text-slate-950">7</p>
-                      <p className="text-sm leading-6 text-slate-600">PDF, PNG, JPG, HTML, CSS, SCSS, and Tailwind output.</p>
-                    </div>
-                    <div className="subpanel space-y-2 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Palette</p>
-                      <p className="font-display text-3xl text-slate-950">{extractedColors.length}</p>
-                      <p className="text-sm leading-6 text-slate-600">Colors currently ready to label, copy, or export.</p>
-                    </div>
-                  </div>
+              <div className="space-y-5 text-center">
+                <div className="mx-auto space-y-4">
+                  <h1 className="font-display mx-auto max-w-5xl text-4xl font-semibold leading-[0.95] text-slate-950 sm:text-5xl lg:text-6xl xl:text-7xl">
+                    Clean color extraction for designers, developers, and brand teams.
+                  </h1>
+                  <p className="mx-auto max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
+                    Drop in an image, pull out the colors you need, rename them clearly, and export the palette in the format your workflow already uses.
+                  </p>
                 </div>
 
-                <aside className="subpanel flex h-full flex-col justify-between gap-6 p-5 sm:p-6">
-                  <div className="space-y-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">How it works</p>
-                    <div className="space-y-3">
-                      {WORKFLOW_STEPS.map(({ icon: Icon, title, text }) => (
-                        <div key={title} className="flex items-start gap-3">
-                          <div
-                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl"
-                            style={{
-                              background: `linear-gradient(135deg, ${accentColor} 0%, ${secondaryAccent} 100%)`,
-                              boxShadow: `0 16px 30px ${withAlpha(accentColor, 0.18)}`,
-                            }}
-                          >
-                            <Icon className="h-4 w-4 text-white" />
-                          </div>
-                          <div className="space-y-1">
-                            <p className="text-sm font-semibold text-slate-900">{title}</p>
-                            <p className="text-sm leading-6 text-slate-600">{text}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                <div className="mx-auto grid max-w-3xl gap-4 md:grid-cols-3">
+                  <div className="subpanel space-y-2 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Modes</p>
+                    <p className="font-display text-3xl text-slate-950">3</p>
+                    <p className="text-sm leading-6 text-slate-600">Auto-detect, manual extraction, and eyedropper picking.</p>
                   </div>
-
-                  <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4">
-                    <div className="flex items-center justify-between gap-4">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Live preview</p>
-                        <p className="mt-2 text-sm text-slate-600">Your current leading palette colors.</p>
-                      </div>
-                      <Eye className="h-5 w-5 text-slate-400" />
-                    </div>
-                    <div className="mt-4 grid grid-cols-3 gap-3">
-                      {[accentColor, secondaryAccent, tertiaryAccent].map((color) => (
-                        <div
-                          key={color}
-                          className="h-16 rounded-2xl border border-white/80"
-                          style={{
-                            backgroundColor: color,
-                            boxShadow: `0 14px 28px ${withAlpha(color, 0.18)}`,
-                          }}
-                        />
-                      ))}
-                    </div>
+                  <div className="subpanel space-y-2 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Exports</p>
+                    <p className="font-display text-3xl text-slate-950">7</p>
+                    <p className="text-sm leading-6 text-slate-600">PDF, PNG, JPG, HTML, CSS, SCSS, and Tailwind output.</p>
                   </div>
-                </aside>
+                  <div className="subpanel space-y-2 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Palette</p>
+                    <p className="font-display text-3xl text-slate-950">{extractedColors.length}</p>
+                    <p className="text-sm leading-6 text-slate-600">Colors currently ready to label, copy, or export.</p>
+                  </div>
+                </div>
               </div>
 
               {!uploadedImage && <ImageUploader onImageUpload={handleImageUpload} />}
