@@ -1,11 +1,11 @@
-# ── Stage 1: Install dependencies ──
+# Stage 1: Install dependencies
 FROM node:20-alpine AS deps
 WORKDIR /app
 
 COPY package.json package-lock.json ./
 RUN npm ci --ignore-scripts
 
-# ── Stage 2: Build the application ──
+# Stage 2: Build the application
 FROM node:20-alpine AS builder
 WORKDIR /app
 
@@ -15,7 +15,7 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
-# ── Stage 3: Production runner ──
+# Stage 3: Production runner
 FROM node:20-alpine AS runner
 WORKDIR /app
 
