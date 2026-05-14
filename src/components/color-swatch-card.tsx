@@ -41,7 +41,7 @@ export function ColorSwatchCard({ color, suggestionsId, onLabelChange, onRemove 
   };
 
   return (
-    <div className="glass-panel group relative flex flex-col gap-4 overflow-hidden rounded-[1.75rem] p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_32px_80px_rgba(15,23,42,0.24)]">
+    <div className="panel group relative flex flex-col gap-4 overflow-hidden rounded-[1.75rem] p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_rgba(15,23,42,0.14)]">
       <div
         className="pointer-events-none absolute inset-0 opacity-20 transition-opacity duration-300 group-hover:opacity-35"
         style={{
@@ -56,7 +56,7 @@ export function ColorSwatchCard({ color, suggestionsId, onLabelChange, onRemove 
         {onRemove && (
           <button
             onClick={onRemove}
-            className="glass-pill absolute right-3 top-3 translate-y-1 rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-slate-800 opacity-0 shadow-lg transition-all duration-300 hover:bg-white/20 group-hover:translate-y-0 group-hover:opacity-100 dark:text-white"
+            className="pill absolute right-3 top-3 translate-y-1 rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-slate-700 opacity-0 transition-all duration-300 hover:bg-slate-100 group-hover:translate-y-0 group-hover:opacity-100"
             aria-label={`Remove ${color.hex}`}
           >
             <span className="flex items-center gap-1.5">
@@ -67,8 +67,8 @@ export function ColorSwatchCard({ color, suggestionsId, onLabelChange, onRemove 
         )}
       </div>
 
-      <div className="glass-subpanel space-y-2 rounded-[1.35rem] p-4">
-        <label className="block text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
+      <div className="subpanel space-y-2 rounded-[1.35rem] p-4">
+        <label className="block text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-500">
           Label
         </label>
         <input
@@ -76,7 +76,7 @@ export function ColorSwatchCard({ color, suggestionsId, onLabelChange, onRemove 
           list={suggestionsId}
           value={color.label}
           onChange={(event) => onLabelChange?.(event.target.value)}
-          className="glass-input w-full rounded-xl px-3 py-2.5 text-sm text-slate-950 outline-none transition focus:border-cyan-300/60 dark:text-slate-50"
+          className="field w-full rounded-xl px-3 py-2.5 text-sm text-slate-950 outline-none transition focus:border-[color:var(--brand-blue)]"
           placeholder="primary"
           aria-label={`Label for ${color.hex}`}
         />
@@ -88,59 +88,59 @@ export function ColorSwatchCard({ color, suggestionsId, onLabelChange, onRemove 
       </div>
 
       <div className="space-y-2 text-sm">
-        <div className="glass-subpanel flex items-center justify-between rounded-2xl px-3 py-2.5">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">HEX</span>
+        <div className="subpanel flex items-center justify-between rounded-2xl px-3 py-2.5">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">HEX</span>
           <div className="flex items-center gap-2">
-            <span className="font-mono text-slate-950 dark:text-slate-50">{color.hex}</span>
+            <span className="font-mono text-slate-950">{color.hex}</span>
             <button
               onClick={() => handleCopy(color.hex)}
-              className="relative rounded-full p-1.5 transition-colors hover:bg-white/12 dark:hover:bg-white/10"
+              className="relative rounded-full p-1.5 transition-colors hover:bg-slate-200"
               aria-label={`Copy ${color.hex}`}
             >
               {copiedValue === color.hex ? (
                 <Check className="h-3.5 w-3.5 text-emerald-400" />
               ) : (
-                <Copy className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" />
+                <Copy className="h-3.5 w-3.5 text-slate-500" />
               )}
             </button>
           </div>
         </div>
         
-        <div className="glass-subpanel flex items-center justify-between rounded-2xl px-3 py-2.5">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">RGB</span>
+        <div className="subpanel flex items-center justify-between rounded-2xl px-3 py-2.5">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">RGB</span>
           <div className="flex items-center gap-2">
-            <span className="font-mono text-xs text-slate-950 dark:text-slate-50">
+            <span className="font-mono text-xs text-slate-950">
               {rgbValue}
             </span>
             <button
               onClick={() => handleCopy(rgbValue)}
-              className="rounded-full p-1.5 transition-colors hover:bg-white/12 dark:hover:bg-white/10"
+              className="rounded-full p-1.5 transition-colors hover:bg-slate-200"
               aria-label={`Copy ${rgbValue}`}
             >
               {copiedValue === rgbValue ? (
                 <Check className="h-3.5 w-3.5 text-emerald-400" />
               ) : (
-                <Copy className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" />
+                <Copy className="h-3.5 w-3.5 text-slate-500" />
               )}
             </button>
           </div>
         </div>
         
-        <div className="glass-subpanel flex items-center justify-between rounded-2xl px-3 py-2.5">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">CMYK</span>
+        <div className="subpanel flex items-center justify-between rounded-2xl px-3 py-2.5">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">CMYK</span>
           <div className="flex items-center gap-2">
-            <span className="font-mono text-xs text-slate-950 dark:text-slate-50">
+            <span className="font-mono text-xs text-slate-950">
               {cmykValue}
             </span>
             <button
               onClick={() => handleCopy(cmykValue)}
-              className="rounded-full p-1.5 transition-colors hover:bg-white/12 dark:hover:bg-white/10"
+              className="rounded-full p-1.5 transition-colors hover:bg-slate-200"
               aria-label={`Copy ${cmykValue}`}
             >
               {copiedValue === cmykValue ? (
                 <Check className="h-3.5 w-3.5 text-emerald-400" />
               ) : (
-                <Copy className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" />
+                <Copy className="h-3.5 w-3.5 text-slate-500" />
               )}
             </button>
           </div>
@@ -148,7 +148,7 @@ export function ColorSwatchCard({ color, suggestionsId, onLabelChange, onRemove 
       </div>
 
       {copiedValue && (
-        <div className="pointer-events-none absolute inset-x-4 bottom-4 animate-flash rounded-2xl border border-emerald-400/25 bg-emerald-400/12 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.24em] text-emerald-200 dark:text-emerald-100">
+        <div className="pointer-events-none absolute inset-x-4 bottom-4 animate-flash rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.24em] text-emerald-700">
           Copied: {copiedValue}
         </div>
       )}

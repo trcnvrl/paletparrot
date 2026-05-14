@@ -40,7 +40,7 @@ function ExportButton({
     <button
       onClick={() => onExport(format)}
       disabled={disabled || exporting !== null}
-      className="glass-pill flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium text-slate-800 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/18 disabled:cursor-not-allowed disabled:opacity-45 dark:text-slate-100"
+      className="pill flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium text-slate-800 transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-45"
     >
       <Icon className="h-4 w-4" />
       {exporting === format ? 'Exporting...' : label}
@@ -84,23 +84,23 @@ function CodePreviewModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/45 px-4 py-6 backdrop-blur-xl"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/30 px-4 py-6 backdrop-blur-sm"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="code-preview-title"
     >
       <div
-        className="glass-panel w-full max-w-[680px] overflow-hidden rounded-[2rem]"
+        className="panel w-full max-w-[680px] overflow-hidden rounded-[2rem]"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-          <h4 id="code-preview-title" className="font-display text-xl font-semibold text-slate-950 dark:text-slate-50">
+        <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+          <h4 id="code-preview-title" className="font-display text-xl font-semibold text-slate-950">
             {modal.title}
           </h4>
           <button
             onClick={onClose}
-            className="glass-pill rounded-full p-2 text-slate-600 transition-colors hover:bg-white/18 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-50"
+            className="pill rounded-full p-2 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
             aria-label="Close code preview"
           >
             <X className="h-4 w-4" />
@@ -115,7 +115,7 @@ function CodePreviewModal({
           <div className="flex flex-wrap justify-end gap-3">
             <button
               onClick={onCopy}
-              className="glass-pill inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-slate-800 transition-colors hover:bg-white/18 dark:text-slate-100"
+              className="pill inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-slate-800 transition-colors hover:bg-slate-100"
             >
               {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
               {copied ? 'Copied!' : 'Copy'}
@@ -123,10 +123,10 @@ function CodePreviewModal({
             <button
               onClick={() => onDownload(modal.format)}
               disabled={exporting !== null}
-              className="button-sheen inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
               style={{
-                background: 'linear-gradient(135deg, #22d3ee 0%, #6366f1 54%, #ec4899 100%)',
-                boxShadow: '0 20px 48px rgba(99, 102, 241, 0.28)',
+                background: 'linear-gradient(135deg, #E8000A 0%, #1A0066 52%, #0015E8 100%)',
+                boxShadow: '0 16px 36px rgba(26, 0, 102, 0.2)',
               }}
             >
               <Download className="h-4 w-4" />
@@ -216,22 +216,22 @@ export function ExportActions({ colors, disabled = false }: ExportActionsProps) 
   return (
     <div className="w-full space-y-5">
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
           Export
         </p>
-        <h3 className="font-display text-2xl font-semibold text-slate-950 dark:text-slate-50">
+        <h3 className="font-display text-2xl font-semibold text-slate-950">
           Export palette
         </h3>
       </div>
 
       <div className="space-y-5">
-        <div className="glass-subpanel rounded-[1.5rem] p-4">
+        <div className="subpanel rounded-[1.5rem] p-4">
           <div className="mb-3 flex items-center gap-3">
-            <div className="h-px flex-1 bg-white/10" />
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+            <div className="h-px flex-1 bg-slate-200" />
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
             Image files
             </p>
-            <div className="h-px flex-1 bg-white/10" />
+            <div className="h-px flex-1 bg-slate-200" />
           </div>
           <div className="flex flex-wrap gap-3">
             <ExportButton format="pdf" icon={FileText} label="PDF" exporting={exporting} disabled={isDisabled} onExport={handleExport} />
@@ -240,13 +240,13 @@ export function ExportActions({ colors, disabled = false }: ExportActionsProps) 
           </div>
         </div>
 
-        <div className="glass-subpanel space-y-3 rounded-[1.5rem] p-4">
+        <div className="subpanel space-y-3 rounded-[1.5rem] p-4">
           <div className="flex items-center gap-3">
-            <div className="h-px flex-1 bg-white/10" />
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+            <div className="h-px flex-1 bg-slate-200" />
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
             Code files
             </p>
-            <div className="h-px flex-1 bg-white/10" />
+            <div className="h-px flex-1 bg-slate-200" />
           </div>
           <div className="flex flex-wrap gap-3">
             {(
@@ -269,7 +269,7 @@ export function ExportActions({ colors, disabled = false }: ExportActionsProps) 
       </div>
 
       {isDisabled && (
-        <p className="text-sm text-slate-600 dark:text-slate-300">
+        <p className="text-sm text-slate-600">
           Extract colors first to enable exports.
         </p>
       )}

@@ -19,10 +19,23 @@ interface HoverSample {
   color: ExtractedColor;
 }
 
+function withAlpha(hex: string, alpha: number) {
+  const normalized = hex.replace('#', '');
+  if (normalized.length !== 6) {
+    return `rgba(232, 0, 10, ${alpha})`;
+  }
+
+  const red = Number.parseInt(normalized.slice(0, 2), 16);
+  const green = Number.parseInt(normalized.slice(2, 4), 16);
+  const blue = Number.parseInt(normalized.slice(4, 6), 16);
+
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+}
+
 export function ImagePreview({
   image,
   mode,
-  accentColor = '#67E8F9',
+  accentColor = '#E8000A',
   onRemove,
   onPickColor,
 }: ImagePreviewProps) {
@@ -180,22 +193,22 @@ export function ImagePreview({
 
   return (
     <div
-      className="relative w-full overflow-hidden rounded-[1.75rem] border border-white/12 bg-white/8"
+      className="relative w-full overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white"
       style={{
-        boxShadow: `0 28px 80px ${accentColor}33`,
+        boxShadow: `0 24px 48px ${withAlpha(accentColor, 0.12)}`,
       }}
     >
       <div
         className="pointer-events-none absolute inset-0 rounded-[1.75rem] opacity-80"
         style={{
-          boxShadow: `inset 0 0 0 1px ${accentColor}30`,
+          boxShadow: `inset 0 0 0 1px ${withAlpha(accentColor, 0.12)}`,
         }}
       />
-      <div className="relative aspect-video w-full overflow-hidden rounded-[1.45rem] bg-slate-950/70">
+      <div className="relative aspect-video w-full overflow-hidden rounded-[1.45rem] bg-slate-100">
         <div
           className="pointer-events-none absolute inset-0 z-10 opacity-100"
           style={{
-            background: `linear-gradient(180deg, ${accentColor}18 0%, rgba(15,23,42,0) 30%, rgba(15,23,42,0.35) 100%)`,
+            background: `linear-gradient(180deg, ${withAlpha(accentColor, 0.08)} 0%, rgba(15,23,42,0) 28%, rgba(15,23,42,0.12) 100%)`,
           }}
         />
         <img
@@ -215,14 +228,14 @@ export function ImagePreview({
       <canvas ref={canvasRef} className="hidden" aria-hidden="true" />
 
       {isEyedropperMode && (
-        <div className="glass-pill absolute left-4 top-4 rounded-full px-4 py-2 text-xs uppercase tracking-[0.28em] text-white shadow-lg">
+        <div className="pill absolute left-4 top-4 rounded-full px-4 py-2 text-xs uppercase tracking-[0.28em] text-slate-700">
           Click the image to add exact pixel colors
         </div>
       )}
 
       {isEyedropperMode && hoverSample && (
         <div
-          className="glass-subpanel fixed z-20 pointer-events-none rounded-2xl shadow-2xl"
+          className="subpanel fixed z-20 pointer-events-none rounded-2xl shadow-2xl"
           style={hoverTooltipStyle}
         >
           <div className="flex items-center gap-3 p-3">
@@ -231,12 +244,10 @@ export function ImagePreview({
               style={{ backgroundColor: hoverSample.color.hex }}
             />
             <div className="space-y-0.5">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">
                 Hovered color
               </p>
-              <p className="font-mono text-sm text-slate-950 dark:text-slate-50">
-                {hoverSample.color.hex}
-              </p>
+              <p className="font-mono text-sm text-slate-950">{hoverSample.color.hex}</p>
             </div>
           </div>
         </div>
@@ -244,19 +255,19 @@ export function ImagePreview({
 
       <button
         onClick={onRemove}
-        className="glass-pill absolute right-4 top-4 rounded-full p-2.5 text-white shadow-lg transition-all hover:scale-105 hover:bg-white/20"
+        className="pill absolute right-4 top-4 rounded-full p-2.5 text-slate-700 transition-all hover:scale-105 hover:bg-slate-100"
         aria-label="Remove image"
       >
         <X className="h-5 w-5" />
       </button>
 
-      <div className="glass-subpanel mt-3 rounded-[1.35rem] px-4 py-3">
-        <p className="text-sm text-slate-700 dark:text-slate-300">
+      <div className="subpanel mt-3 rounded-[1.35rem] px-4 py-3">
+        <p className="text-sm text-slate-700">
           {image.file.name} • {(image.file.size / 1024).toFixed(1)} KB
           {image.width && image.height && ` • ${image.width} × ${image.height}px`}
         </p>
         {isEyedropperMode && hoverSample && (
-          <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+          <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-500">
             Previewing {hoverSample.color.hex}
           </p>
         )}

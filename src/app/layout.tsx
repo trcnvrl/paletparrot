@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Syne } from 'next/font/google';
 import './globals.css';
-import { ThemeProvider } from '@/components/theme-provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -22,9 +21,9 @@ export const metadata: Metadata = {
   title: 'PaletParrot - Extract Color Palettes from Images',
   description: 'Upload an image, extract colors, label them, and export the palette as CSS, SCSS, Tailwind, PDF, PNG, or JPG.',
   icons: {
-    icon: '/logo-icon-color.svg',
-    shortcut: '/logo-icon-color.svg',
-    apple: '/logo-icon-color.svg',
+    icon: '/paletparrot-mark.png',
+    shortcut: '/paletparrot-mark.png',
+    apple: '/paletparrot-mark.png',
   },
   applicationName: 'PaletParrot',
   openGraph: {
@@ -43,18 +42,8 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} h-full antialiased`}
-      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-transparent text-slate-950 dark:text-slate-50">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
+      <body className="min-h-full flex flex-col bg-background text-foreground">{children}</body>
     </html>
   );
 }

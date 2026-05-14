@@ -19,21 +19,21 @@ export function PaletteGrid({ colors, onLabelChange, onRemoveColor }: PaletteGri
     <section className="w-full space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
             Palette
           </p>
-          <h2 className="font-display text-3xl font-bold text-slate-950 dark:text-slate-50">
+          <h2 className="font-display text-3xl font-bold text-slate-950">
             Extracted colors
           </h2>
         </div>
-        <span className="glass-pill rounded-full px-4 py-2 text-sm text-slate-700 dark:text-slate-200">
+        <span className="pill rounded-full px-4 py-2 text-sm text-slate-700">
           {colors.length} {colors.length === 1 ? 'color' : 'colors'}
         </span>
       </div>
 
       <div
         id="palette-export-area"
-        className="glass-panel w-full rounded-[2rem] p-5 sm:p-8"
+        className="panel w-full rounded-[2rem] p-5 sm:p-8"
       >
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
           {colors.map((color, index) => (
