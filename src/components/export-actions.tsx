@@ -40,7 +40,7 @@ function ExportButton({
     <button
       onClick={() => onExport(format)}
       disabled={disabled || exporting !== null}
-      className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm font-medium text-gray-700 dark:text-gray-300"
+      className="glass-pill flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium text-slate-800 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/18 disabled:cursor-not-allowed disabled:opacity-45 dark:text-slate-100"
     >
       <Icon className="h-4 w-4" />
       {exporting === format ? 'Exporting...' : label}
@@ -84,23 +84,23 @@ function CodePreviewModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/45 px-4 py-6 backdrop-blur-xl"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="code-preview-title"
     >
       <div
-        className="w-full max-w-[600px] overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
+        className="glass-panel w-full max-w-[680px] overflow-hidden rounded-[2rem]"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4 dark:border-gray-800">
-          <h4 id="code-preview-title" className="text-base font-semibold text-gray-900 dark:text-gray-100">
+        <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+          <h4 id="code-preview-title" className="font-display text-xl font-semibold text-slate-950 dark:text-slate-50">
             {modal.title}
           </h4>
           <button
             onClick={onClose}
-            className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+            className="glass-pill rounded-full p-2 text-slate-600 transition-colors hover:bg-white/18 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-50"
             aria-label="Close code preview"
           >
             <X className="h-4 w-4" />
@@ -108,14 +108,14 @@ function CodePreviewModal({
         </div>
 
         <div className="space-y-4 p-5">
-          <pre className="max-h-[60vh] overflow-auto rounded-xl bg-gray-950 p-4 text-xs leading-6 text-gray-100">
+          <pre className="max-h-[60vh] overflow-auto rounded-[1.5rem] bg-slate-950/90 p-4 text-xs leading-6 text-cyan-50 shadow-inner">
             <code>{modal.code}</code>
           </pre>
 
           <div className="flex flex-wrap justify-end gap-3">
             <button
               onClick={onCopy}
-              className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+              className="glass-pill inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-slate-800 transition-colors hover:bg-white/18 dark:text-slate-100"
             >
               {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
               {copied ? 'Copied!' : 'Copy'}
@@ -123,7 +123,11 @@ function CodePreviewModal({
             <button
               onClick={() => onDownload(modal.format)}
               disabled={exporting !== null}
-              className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
+              className="button-sheen inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
+              style={{
+                background: 'linear-gradient(135deg, #22d3ee 0%, #6366f1 54%, #ec4899 100%)',
+                boxShadow: '0 20px 48px rgba(99, 102, 241, 0.28)',
+              }}
             >
               <Download className="h-4 w-4" />
               {exporting === modal.format ? 'Downloading...' : 'Download'}
@@ -210,16 +214,25 @@ export function ExportActions({ colors, disabled = false }: ExportActionsProps) 
   const isDisabled = disabled || colors.length === 0;
 
   return (
-    <div className="w-full space-y-4">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+    <div className="w-full space-y-5">
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+          Export suite
+        </p>
+        <h3 className="font-display text-2xl font-semibold text-slate-950 dark:text-slate-50">
         Export Palette
-      </h3>
+        </h3>
+      </div>
 
-      <div className="space-y-3">
-        <div>
-          <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+      <div className="space-y-5">
+        <div className="glass-subpanel rounded-[1.5rem] p-4">
+          <div className="mb-3 flex items-center gap-3">
+            <div className="h-px flex-1 bg-white/10" />
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
             Image Exports
-          </p>
+            </p>
+            <div className="h-px flex-1 bg-white/10" />
+          </div>
           <div className="flex flex-wrap gap-3">
             <ExportButton format="pdf" icon={FileText} label="PDF" exporting={exporting} disabled={isDisabled} onExport={handleExport} />
             <ExportButton format="png" icon={FileImage} label="PNG" exporting={exporting} disabled={isDisabled} onExport={handleExport} />
@@ -227,10 +240,14 @@ export function ExportActions({ colors, disabled = false }: ExportActionsProps) 
           </div>
         </div>
 
-        <div className="space-y-3">
-          <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <div className="glass-subpanel space-y-3 rounded-[1.5rem] p-4">
+          <div className="flex items-center gap-3">
+            <div className="h-px flex-1 bg-white/10" />
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
             Code Exports
-          </p>
+            </p>
+            <div className="h-px flex-1 bg-white/10" />
+          </div>
           <div className="flex flex-wrap gap-3">
             {(
               Object.entries(codeExportMeta) as Array<
@@ -252,7 +269,7 @@ export function ExportActions({ colors, disabled = false }: ExportActionsProps) 
       </div>
 
       {isDisabled && (
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-slate-600 dark:text-slate-300">
           Extract colors first to enable export options
         </p>
       )}

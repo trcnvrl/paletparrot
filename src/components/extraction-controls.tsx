@@ -43,19 +43,19 @@ export function ExtractionControls({
   };
 
   return (
-    <div className="w-full space-y-6 p-6 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+    <div className="w-full space-y-7">
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+        <label className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
           Extraction Mode
         </label>
-        <div className="flex gap-3">
+        <div className="glass-subpanel grid gap-2 rounded-[1.4rem] p-2 sm:grid-cols-3">
           <button
             onClick={() => onModeChange('auto')}
             className={`
-              flex-1 px-4 py-3 rounded-lg font-medium transition-all
+              rounded-[1rem] px-4 py-3.5 text-sm font-semibold transition-all duration-300
               ${mode === 'auto'
-                ? 'bg-blue-500 text-white shadow-md'
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                ? 'button-sheen bg-[linear-gradient(135deg,#22d3ee_0%,#6366f1_52%,#a855f7_100%)] text-white shadow-[0_14px_38px_rgba(99,102,241,0.32)]'
+                : 'text-slate-700 hover:bg-white/12 dark:text-slate-300 dark:hover:bg-white/8'
               }
             `}
             disabled={isExtracting}
@@ -65,10 +65,10 @@ export function ExtractionControls({
           <button
             onClick={() => onModeChange('manual')}
             className={`
-              flex-1 px-4 py-3 rounded-lg font-medium transition-all
+              rounded-[1rem] px-4 py-3.5 text-sm font-semibold transition-all duration-300
               ${mode === 'manual'
-                ? 'bg-blue-500 text-white shadow-md'
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                ? 'button-sheen bg-[linear-gradient(135deg,#22d3ee_0%,#6366f1_52%,#a855f7_100%)] text-white shadow-[0_14px_38px_rgba(99,102,241,0.32)]'
+                : 'text-slate-700 hover:bg-white/12 dark:text-slate-300 dark:hover:bg-white/8'
               }
             `}
             disabled={isExtracting}
@@ -78,10 +78,10 @@ export function ExtractionControls({
           <button
             onClick={() => onModeChange('eyedropper')}
             className={`
-              flex-1 px-4 py-3 rounded-lg font-medium transition-all
+              rounded-[1rem] px-4 py-3.5 text-sm font-semibold transition-all duration-300
               ${mode === 'eyedropper'
-                ? 'bg-blue-500 text-white shadow-md'
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                ? 'button-sheen bg-[linear-gradient(135deg,#22d3ee_0%,#6366f1_52%,#a855f7_100%)] text-white shadow-[0_14px_38px_rgba(99,102,241,0.32)]'
+                : 'text-slate-700 hover:bg-white/12 dark:text-slate-300 dark:hover:bg-white/8'
               }
             `}
             disabled={isExtracting}
@@ -89,7 +89,7 @@ export function ExtractionControls({
             Eyedropper
           </button>
         </div>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+        <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
           {mode === 'auto' 
             ? 'Automatically detect all unique colors in simple swatches'
             : mode === 'manual'
@@ -100,9 +100,9 @@ export function ExtractionControls({
       </div>
 
       {mode === 'manual' && (
-        <div>
-          <div className="flex items-center justify-between mb-3">
-            <label htmlFor="color-count" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <div className="glass-subpanel rounded-[1.5rem] p-5">
+          <div className="mb-4 flex items-center justify-between">
+            <label htmlFor="color-count" className="block text-xs font-semibold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
               Number of Colors
             </label>
             <input
@@ -111,7 +111,7 @@ export function ExtractionControls({
               onChange={handleInputChange}
               min="2"
               max="20"
-              className="w-16 px-2 py-1 text-center border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+              className="glass-input w-20 rounded-xl px-3 py-2 text-center text-sm font-semibold text-slate-950 outline-none transition focus:border-cyan-300/60 dark:text-slate-50"
               disabled={isExtracting}
             />
           </div>
@@ -122,10 +122,10 @@ export function ExtractionControls({
             max="20"
             value={colorCount}
             onChange={handleSliderChange}
-            className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+            className="glass-range w-full cursor-pointer"
             disabled={isExtracting}
           />
-          <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <div className="mt-2 flex justify-between text-xs uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">
             <span>2</span>
             <span>20</span>
           </div>
@@ -133,17 +133,17 @@ export function ExtractionControls({
       )}
 
       {mode === 'eyedropper' ? (
-        <div className="px-4 py-3 rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900">
+        <div className="glass-subpanel rounded-[1.5rem] border border-cyan-300/20 px-5 py-4">
           <div className="flex items-center justify-between gap-4">
-            <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+            <span className="text-sm font-medium text-slate-800 dark:text-cyan-100">
               Pick colors from the image preview
             </span>
-            <span className="text-sm text-blue-600 dark:text-blue-400">
+            <span className="text-sm text-slate-600 dark:text-cyan-200/80">
               {pickedColorCount} {pickedColorCount === 1 ? 'color picked' : 'colors picked'}
             </span>
           </div>
           {!hasImage && (
-            <p className="mt-2 text-xs text-blue-600 dark:text-blue-400">
+            <p className="mt-2 text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-cyan-100/70">
               Upload an image to start picking colors.
             </p>
           )}
@@ -152,7 +152,11 @@ export function ExtractionControls({
         <button
           onClick={onExtract}
           disabled={!hasImage || isExtracting}
-          className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 dark:disabled:from-gray-700 dark:disabled:to-gray-600 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
+          className="button-sheen w-full rounded-[1.4rem] px-6 py-4 text-sm font-semibold uppercase tracking-[0.28em] text-white transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-45"
+          style={{
+            background: 'linear-gradient(135deg, #22d3ee 0%, #6366f1 50%, #ec4899 100%)',
+            boxShadow: '0 24px 60px rgba(99, 102, 241, 0.3)',
+          }}
         >
           {isExtracting ? 'Extracting Colors...' : 'Extract Palette'}
         </button>

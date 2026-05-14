@@ -8,6 +8,7 @@ import { normalizeColor } from '@/lib/color-utils';
 interface ImagePreviewProps {
   image: UploadedImage;
   mode: ExtractionMode;
+  accentColor?: string;
   onRemove: () => void;
   onPickColor?: (color: ExtractedColor) => void;
 }
@@ -21,6 +22,7 @@ interface HoverSample {
 export function ImagePreview({
   image,
   mode,
+  accentColor = '#67E8F9',
   onRemove,
   onPickColor,
 }: ImagePreviewProps) {
@@ -177,14 +179,31 @@ export function ImagePreview({
   }, [hoverSample]);
 
   return (
-    <div className="relative w-full rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
-      <div className="relative w-full aspect-video">
+    <div
+      className="relative w-full overflow-hidden rounded-[1.75rem] border border-white/12 bg-white/8"
+      style={{
+        boxShadow: `0 28px 80px ${accentColor}33`,
+      }}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 rounded-[1.75rem] opacity-80"
+        style={{
+          boxShadow: `inset 0 0 0 1px ${accentColor}30`,
+        }}
+      />
+      <div className="relative aspect-video w-full overflow-hidden rounded-[1.45rem] bg-slate-950/70">
+        <div
+          className="pointer-events-none absolute inset-0 z-10 opacity-100"
+          style={{
+            background: `linear-gradient(180deg, ${accentColor}18 0%, rgba(15,23,42,0) 30%, rgba(15,23,42,0.35) 100%)`,
+          }}
+        />
         <img
           key={`${image.src}-${mode}`}
           ref={imageRef}
           src={image.src}
           alt="Uploaded image"
-          className={`h-full w-full object-contain ${isEyedropperMode ? 'cursor-crosshair' : ''}`}
+          className={`relative z-0 h-full w-full object-contain transition-transform duration-500 ${isEyedropperMode ? 'cursor-crosshair' : ''}`}
           onLoad={drawToCanvas}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
@@ -196,24 +215,26 @@ export function ImagePreview({
       <canvas ref={canvasRef} className="hidden" aria-hidden="true" />
 
       {isEyedropperMode && (
-        <div className="absolute left-3 top-3 rounded-lg bg-black/70 px-3 py-2 text-xs text-white shadow-lg">
+        <div className="glass-pill absolute left-4 top-4 rounded-full px-4 py-2 text-xs uppercase tracking-[0.28em] text-white shadow-lg">
           Click the image to add exact pixel colors
         </div>
       )}
 
       {isEyedropperMode && hoverSample && (
         <div
-          className="fixed z-20 pointer-events-none rounded-lg border border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 shadow-xl backdrop-blur-sm"
+          className="glass-subpanel fixed z-20 pointer-events-none rounded-2xl shadow-2xl"
           style={hoverTooltipStyle}
         >
           <div className="flex items-center gap-3 p-3">
             <div
-              className="h-10 w-10 rounded-md border border-gray-200 dark:border-gray-700"
+              className="h-10 w-10 rounded-xl border border-white/20"
               style={{ backgroundColor: hoverSample.color.hex }}
             />
             <div className="space-y-0.5">
-              <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Hovered color</p>
-              <p className="font-mono text-sm text-gray-900 dark:text-gray-100">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">
+                Hovered color
+              </p>
+              <p className="font-mono text-sm text-slate-950 dark:text-slate-50">
                 {hoverSample.color.hex}
               </p>
             </div>
@@ -223,19 +244,19 @@ export function ImagePreview({
 
       <button
         onClick={onRemove}
-        className="absolute top-3 right-3 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+        className="glass-pill absolute right-4 top-4 rounded-full p-2.5 text-white shadow-lg transition-all hover:scale-105 hover:bg-white/20"
         aria-label="Remove image"
       >
-        <X className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+        <X className="h-5 w-5" />
       </button>
 
-      <div className="p-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+      <div className="glass-subpanel mt-3 rounded-[1.35rem] px-4 py-3">
+        <p className="text-sm text-slate-700 dark:text-slate-300">
           {image.file.name} • {(image.file.size / 1024).toFixed(1)} KB
           {image.width && image.height && ` • ${image.width} × ${image.height}px`}
         </p>
         {isEyedropperMode && hoverSample && (
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
             Previewing {hoverSample.color.hex}
           </p>
         )}

@@ -1,8 +1,8 @@
-# ChromaSnap
+# PaletParsr
 
 Extract color palettes from any image.
 
-ChromaSnap is a responsive palette extraction app for designers and developers. Upload an image, extract a polished palette, rename swatches, inspect color values, and export the results as images or production-ready code tokens.
+PaletParsr is a responsive palette extraction app for designers and developers. Upload an image, extract a polished palette, rename swatches, inspect color values, and export the results as images or production-ready code tokens.
 
 ## Features
 

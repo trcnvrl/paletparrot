@@ -1,7 +1,8 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { Palette } from 'lucide-react';
+import { Palette, Sparkles, WandSparkles } from 'lucide-react';
+import { BackgroundGlow } from '@/components/background-glow';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { ImageUploader } from '@/components/image-uploader';
 import { ImagePreview } from '@/components/image-preview';
@@ -29,6 +30,19 @@ function getNextDefaultLabel(colors: ExtractedColor[]): string {
   }, 0);
 
   return `color-${highestUsedIndex + 1}`;
+}
+
+function withAlpha(hex: string, alpha: number) {
+  const normalized = hex.replace('#', '');
+  if (normalized.length !== 6) {
+    return `rgba(103, 232, 249, ${alpha})`;
+  }
+
+  const red = Number.parseInt(normalized.slice(0, 2), 16);
+  const green = Number.parseInt(normalized.slice(2, 4), 16);
+  const blue = Number.parseInt(normalized.slice(4, 6), 16);
+
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
 export default function Home() {
@@ -90,7 +104,7 @@ export default function Home() {
 
     try {
       let colors: ExtractedColor[];
-      
+
       if (extractionMode === 'auto') {
         colors = await extractColorsAuto(uploadedImage.src);
       } else {
@@ -106,99 +120,204 @@ export default function Home() {
     }
   };
 
+  const accentColor = extractedColors[0]?.hex ?? '#67E8F9';
+  const secondaryAccent = extractedColors[1]?.hex ?? '#A78BFA';
+  const tertiaryAccent = extractedColors[2]?.hex ?? '#F472B6';
+
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Header */}
-      <header className="w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg">
-              <Palette className="h-6 w-6 text-white" />
-            </div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-              ChromaSnap
-            </h1>
-          </div>
-          <ThemeToggle />
-        </div>
-      </header>
+    <div className="relative isolate min-h-screen overflow-hidden">
+      <BackgroundGlow extractedColors={extractedColors} />
 
-      {/* Main Content */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* Hero Section */}
-        <div className="text-center space-y-2">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">
-            Extract Color Palettes from Images
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Upload any image and instantly generate a beautiful color palette with HEX, RGB, and CMYK values
-          </p>
-        </div>
-
-        {/* Upload Section */}
-        {!uploadedImage ? (
-          <div className="max-w-2xl mx-auto">
-            <ImageUploader onImageUpload={handleImageUpload} />
-          </div>
-        ) : (
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Left Column: Image Preview */}
-            <div className="space-y-6">
-              <ImagePreview
-                key={`${uploadedImage.src}-${extractionMode}`}
-                image={uploadedImage}
-                mode={extractionMode}
-                onRemove={handleRemoveImage}
-                onPickColor={handlePickColor}
-              />
-              
-              {extractedColors.length > 0 && (
-                <ExportActions colors={extractedColors} />
-              )}
-            </div>
-
-            {/* Right Column: Extraction Controls */}
-            <div>
-              <ExtractionControls
-                mode={extractionMode}
-                colorCount={colorCount}
-                pickedColorCount={extractedColors.length}
-                onModeChange={handleModeChange}
-                onColorCountChange={setColorCount}
-                onExtract={handleExtractColors}
-                isExtracting={isExtracting}
-                hasImage={!!uploadedImage}
-              />
-              
-              {error && (
-                <div className="mt-4 p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900 rounded-lg">
-                  <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+      <div className="relative z-10 flex min-h-screen flex-col">
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-slate-950/35 backdrop-blur-2xl">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <div
+                  className="absolute inset-0 rounded-[1.4rem] blur-xl"
+                  style={{
+                    background: `linear-gradient(135deg, ${withAlpha(accentColor, 0.42)}, ${withAlpha(
+                      secondaryAccent,
+                      0.42
+                    )})`,
+                  }}
+                />
+                <div className="glass-pill relative flex h-12 w-12 items-center justify-center rounded-[1.4rem]">
+                  <Palette className="h-6 w-6 text-white" />
                 </div>
-              )}
+              </div>
+              <div>
+                <p className="font-display text-xl font-bold uppercase tracking-[0.22em] text-white/72">
+                  PaletParsr
+                </p>
+                <p className="text-xs uppercase tracking-[0.28em] text-cyan-100/60">
+                  Reactive palette intelligence
+                </p>
+              </div>
             </div>
+            <ThemeToggle />
           </div>
-        )}
+        </header>
 
-        {/* Palette Display */}
-        {extractedColors.length > 0 && (
-          <div className="pt-8">
+        <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+          <section className="glass-panel overflow-hidden rounded-[2rem] p-6 sm:p-8 lg:p-10">
+            <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
+              <div className="space-y-6">
+                <div className="glass-pill inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-cyan-100/80">
+                  <Sparkles className="h-4 w-4" />
+                  Next-gen color extraction
+                </div>
+                <div className="space-y-4">
+                  <h1 className="font-display max-w-4xl text-4xl font-bold leading-none sm:text-5xl lg:text-7xl">
+                    <span className="text-gradient-brand">Palette creation with kinetic glass energy.</span>
+                  </h1>
+                  <p className="max-w-2xl text-base leading-7 text-slate-700 sm:text-lg dark:text-slate-300">
+                    Upload any image, reveal refined palettes, and export production-ready tokens in a
+                    workspace that reacts to every extracted hue in real time.
+                  </p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <div className="glass-subpanel rounded-2xl px-4 py-4">
+                    <p className="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Modes</p>
+                    <p className="font-display mt-2 text-2xl text-slate-950 dark:text-white">3</p>
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Auto, manual, eyedropper</p>
+                  </div>
+                  <div className="glass-subpanel rounded-2xl px-4 py-4">
+                    <p className="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Exports</p>
+                    <p className="font-display mt-2 text-2xl text-slate-950 dark:text-white">7</p>
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Images, code, config</p>
+                  </div>
+                  <div className="glass-subpanel rounded-2xl px-4 py-4">
+                    <p className="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+                      Live glow
+                    </p>
+                    <p className="font-display mt-2 text-2xl text-slate-950 dark:text-white">
+                      {Math.max(extractedColors.length, 2)}
+                    </p>
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Ambient color fields</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="glass-subpanel rounded-[1.75rem] p-5 sm:p-6">
+                <div className="flex items-start gap-4">
+                  <div
+                    className="mt-1 flex h-11 w-11 items-center justify-center rounded-2xl text-white shadow-lg"
+                    style={{
+                      background: `linear-gradient(135deg, ${accentColor}, ${secondaryAccent})`,
+                      boxShadow: `0 18px 42px ${withAlpha(accentColor, 0.35)}`,
+                    }}
+                  >
+                    <WandSparkles className="h-5 w-5" />
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
+                      Visual system
+                    </p>
+                    <h2 className="font-display text-2xl font-semibold text-slate-950 dark:text-white">
+                      Dark-first, reactive, export-ready
+                    </h2>
+                    <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">
+                      Every key surface now uses layered translucency, responsive glow, and motion tuned
+                      to the active palette.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {!uploadedImage && (
+              <div className="mt-8 max-w-3xl">
+                <ImageUploader onImageUpload={handleImageUpload} />
+              </div>
+            )}
+          </section>
+
+          {uploadedImage && (
+            <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+              <div className="space-y-6">
+                <div className="glass-panel rounded-[2rem] p-4 sm:p-5">
+                  <ImagePreview
+                    key={`${uploadedImage.src}-${extractionMode}`}
+                    image={uploadedImage}
+                    mode={extractionMode}
+                    accentColor={accentColor}
+                    onRemove={handleRemoveImage}
+                    onPickColor={handlePickColor}
+                  />
+                </div>
+
+                {extractedColors.length > 0 && (
+                  <div className="glass-panel rounded-[2rem] p-5 sm:p-6">
+                    <ExportActions colors={extractedColors} />
+                  </div>
+                )}
+              </div>
+
+              <div className="space-y-5">
+                <div className="glass-panel rounded-[2rem] p-5 sm:p-6">
+                  <ExtractionControls
+                    mode={extractionMode}
+                    colorCount={colorCount}
+                    pickedColorCount={extractedColors.length}
+                    onModeChange={handleModeChange}
+                    onColorCountChange={setColorCount}
+                    onExtract={handleExtractColors}
+                    isExtracting={isExtracting}
+                    hasImage={!!uploadedImage}
+                  />
+                </div>
+
+                {error && (
+                  <div
+                    className="glass-panel rounded-[1.6rem] border border-rose-400/25 px-5 py-4"
+                    style={{ boxShadow: `0 20px 46px ${withAlpha('#FB7185', 0.18)}` }}
+                  >
+                    <p className="text-sm text-rose-600 dark:text-rose-200">{error}</p>
+                  </div>
+                )}
+
+                <div className="glass-subpanel rounded-[1.6rem] p-5">
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+                    Active accents
+                  </p>
+                  <div className="mt-4 flex items-center gap-3">
+                    {[accentColor, secondaryAccent, tertiaryAccent].map((color) => (
+                      <div
+                        key={color}
+                        className="h-12 flex-1 rounded-2xl border border-white/20 shadow-lg"
+                        style={{
+                          backgroundColor: color,
+                          boxShadow: `0 16px 36px ${withAlpha(color, 0.34)}`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {extractedColors.length > 0 && (
             <PaletteGrid
               colors={extractedColors}
               onLabelChange={handleLabelChange}
               onRemoveColor={handleRemoveColor}
             />
-          </div>
-        )}
-      </main>
+          )}
+        </main>
 
-      {/* Footer */}
-      <footer className="w-full border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            Built with Next.js, TypeScript, and Tailwind CSS
-          </p>
-        </div>
-      </footer>
+        <footer className="relative z-10 mt-auto border-t border-white/10 bg-slate-950/22 backdrop-blur-2xl">
+          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-center sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:text-left">
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              Built with Next.js, TypeScript, and Tailwind CSS
+            </p>
+            <p className="text-xs uppercase tracking-[0.28em] text-slate-500 dark:text-slate-500">
+              Reactive UI • Glass surfaces • Motion tuned to palette data
+            </p>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 }

@@ -16,21 +16,26 @@ export function PaletteGrid({ colors, onLabelChange, onRemoveColor }: PaletteGri
   }
 
   return (
-    <div className="w-full space-y-6">
+    <section className="w-full space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
+            Palette system
+          </p>
+          <h2 className="font-display text-3xl font-bold text-slate-950 dark:text-slate-50">
           Extracted Palette
-        </h2>
-        <span className="text-sm text-gray-500 dark:text-gray-400">
+          </h2>
+        </div>
+        <span className="glass-pill rounded-full px-4 py-2 text-sm text-slate-700 dark:text-slate-200">
           {colors.length} {colors.length === 1 ? 'color' : 'colors'}
         </span>
       </div>
 
       <div
         id="palette-export-area"
-        className="w-full p-8 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800"
+        className="glass-panel w-full rounded-[2rem] p-5 sm:p-8"
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
           {colors.map((color, index) => (
             <ColorSwatchCard
               key={`${color.hex}-${index}`}
@@ -51,7 +56,7 @@ export function PaletteGrid({ colors, onLabelChange, onRemoveColor }: PaletteGri
           fontFamily: 'system-ui, -apple-system, sans-serif'
         }}>
           <h1 style={{ fontSize: '32px', marginBottom: '32px', color: '#111827' }}>
-            ChromaSnap Color Palette
+            PaletParsr Color Palette
           </h1>
           <div style={{ 
             display: 'grid', 
@@ -102,6 +107,6 @@ export function PaletteGrid({ colors, onLabelChange, onRemoveColor }: PaletteGri
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
