@@ -80,86 +80,32 @@ function buildExportTokens(colors: ExtractedColor[]): ExportToken[] {
   });
 }
 
-export function getCodeExportPreview(
-  colors: ExtractedColor[],
-  format: 'css' | 'scss' | 'tailwind'
-): string {
+export function generateCssVariables(colors: ExtractedColor[]): string {
   const tokens = buildExportTokens(colors);
 
-  switch (format) {
-    case 'css':
-      return `:root {\n${tokens
-        .map((token) => `  --color-${token.key}: ${token.hex};`)
-        .join('\n')}\n}`;
-    case 'scss':
-      return tokens
-        .map((token) => `$color-${token.key}: ${token.hex};`)
-        .join('\n');
-    case 'tailwind':
-      return `const colors = {\n${tokens
-        .map((token) => `  '${token.key}': '${token.hex}',`)
-        .join('\n')}\n};\n\nexport default colors;`;
-  }
+  return `:root {\n${tokens
+    .map((token) => `  --color-${token.key}: ${token.hex};`)
+    .join('\n')}\n}`;
 }
 
-/**
- * Export palette as PNG
- */
-export async function exportAsPng(elementId: string, filename: string = 'chromasnap-palette.png'): Promise<void> {
-  const canvas = await renderExportCanvas(elementId);
-  const blob = await canvasToBlob(canvas, 'image/png');
-  downloadBlob(blob, filename);
+export function generateScssVariables(colors: ExtractedColor[]): string {
+  const tokens = buildExportTokens(colors);
+
+  return tokens
+    .map((token) => `$color-${token.key}: ${token.hex};`)
+    .join('\n');
 }
 
-/**
- * Export palette as JPG
- */
-export async function exportAsJpg(elementId: string, filename: string = 'chromasnap-palette.jpg'): Promise<void> {
-  const canvas = await renderExportCanvas(elementId);
-  const blob = await canvasToBlob(canvas, 'image/jpeg', 0.95);
-  downloadBlob(blob, filename);
+export function generateTailwindConfig(colors: ExtractedColor[]): string {
+  const tokens = buildExportTokens(colors);
+
+  return `const colors = {\n${tokens
+    .map((token) => `  '${token.key}': '${token.hex}',`)
+    .join('\n')}\n};\n\nexport default colors;`;
 }
 
-/**
- * Export palette as PDF
- */
-export async function exportAsPdf(elementId: string, filename: string = 'chromasnap-palette.pdf'): Promise<void> {
-  const canvas = await renderExportCanvas(elementId);
-  const imgData = canvas.toDataURL('image/jpeg', 1.0);
-
-  const pdf = new jsPDF({
-    orientation: canvas.width > canvas.height ? 'landscape' : 'portrait',
-    unit: 'mm',
-    format: 'a4',
-  });
-  const pageWidth = pdf.internal.pageSize.getWidth();
-  const pageHeight = pdf.internal.pageSize.getHeight();
-  const imageRatio = canvas.width / canvas.height;
-  const pageRatio = pageWidth / pageHeight;
-
-  let imageWidth: number;
-  let imageHeight: number;
-
-  if (imageRatio > pageRatio) {
-    imageWidth = pageWidth;
-    imageHeight = pageWidth / imageRatio;
-  } else {
-    imageHeight = pageHeight;
-    imageWidth = pageHeight * imageRatio;
-  }
-
-  const x = (pageWidth - imageWidth) / 2;
-  const y = (pageHeight - imageHeight) / 2;
-
-  pdf.addImage(imgData, 'JPEG', x, y, imageWidth, imageHeight);
-  pdf.save(filename);
-}
-
-/**
- * Export palette as standalone HTML
- */
-export function exportAsHtml(colors: ExtractedColor[], filename: string = 'chromasnap-palette.html'): void {
-  const htmlContent = `<!DOCTYPE html>
+export function generateHtmlExport(colors: ExtractedColor[]): string {
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -274,25 +220,101 @@ export function exportAsHtml(colors: ExtractedColor[], filename: string = 'chrom
   </div>
 </body>
 </html>`;
+}
 
+export function getCodeExportPreview(
+  colors: ExtractedColor[],
+  format: 'css' | 'scss' | 'tailwind' | 'html'
+): string {
+
+  switch (format) {
+    case 'css':
+      return generateCssVariables(colors);
+    case 'scss':
+      return generateScssVariables(colors);
+    case 'tailwind':
+      return generateTailwindConfig(colors);
+    case 'html':
+      return generateHtmlExport(colors);
+  }
+}
+
+/**
+ * Export palette as PNG
+ */
+export async function exportAsPng(elementId: string, filename: string = 'chromasnap-palette.png'): Promise<void> {
+  const canvas = await renderExportCanvas(elementId);
+  const blob = await canvasToBlob(canvas, 'image/png');
+  downloadBlob(blob, filename);
+}
+
+/**
+ * Export palette as JPG
+ */
+export async function exportAsJpg(elementId: string, filename: string = 'chromasnap-palette.jpg'): Promise<void> {
+  const canvas = await renderExportCanvas(elementId);
+  const blob = await canvasToBlob(canvas, 'image/jpeg', 0.95);
+  downloadBlob(blob, filename);
+}
+
+/**
+ * Export palette as PDF
+ */
+export async function exportAsPdf(elementId: string, filename: string = 'chromasnap-palette.pdf'): Promise<void> {
+  const canvas = await renderExportCanvas(elementId);
+  const imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+  const pdf = new jsPDF({
+    orientation: canvas.width > canvas.height ? 'landscape' : 'portrait',
+    unit: 'mm',
+    format: 'a4',
+  });
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  const imageRatio = canvas.width / canvas.height;
+  const pageRatio = pageWidth / pageHeight;
+
+  let imageWidth: number;
+  let imageHeight: number;
+
+  if (imageRatio > pageRatio) {
+    imageWidth = pageWidth;
+    imageHeight = pageWidth / imageRatio;
+  } else {
+    imageHeight = pageHeight;
+    imageWidth = pageHeight * imageRatio;
+  }
+
+  const x = (pageWidth - imageWidth) / 2;
+  const y = (pageHeight - imageHeight) / 2;
+
+  pdf.addImage(imgData, 'JPEG', x, y, imageWidth, imageHeight);
+  pdf.save(filename);
+}
+
+/**
+ * Export palette as standalone HTML
+ */
+export function exportAsHtml(colors: ExtractedColor[], filename: string = 'chromasnap-palette.html'): void {
+  const htmlContent = generateHtmlExport(colors);
   const blob = new Blob([htmlContent], { type: 'text/html' });
   downloadBlob(blob, filename);
 }
 
 export function exportAsCss(colors: ExtractedColor[], filename: string = 'chromasnap-palette.css'): void {
-  const content = `${getCodeExportPreview(colors, 'css')}\n`;
+  const content = `${generateCssVariables(colors)}\n`;
   const blob = new Blob([content], { type: 'text/css' });
   downloadBlob(blob, filename);
 }
 
 export function exportAsScss(colors: ExtractedColor[], filename: string = 'chromasnap-palette.scss'): void {
-  const content = `${getCodeExportPreview(colors, 'scss')}\n`;
+  const content = `${generateScssVariables(colors)}\n`;
   const blob = new Blob([content], { type: 'text/x-scss' });
   downloadBlob(blob, filename);
 }
 
 export function exportAsTailwind(colors: ExtractedColor[], filename: string = 'chromasnap-tailwind-colors.js'): void {
-  const content = `${getCodeExportPreview(colors, 'tailwind')}\n`;
+  const content = `${generateTailwindConfig(colors)}\n`;
   const blob = new Blob([content], { type: 'text/javascript' });
   downloadBlob(blob, filename);
 }
