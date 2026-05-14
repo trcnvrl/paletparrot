@@ -242,7 +242,7 @@ export function getCodeExportPreview(
 /**
  * Export palette as PNG
  */
-export async function exportAsPng(elementId: string, filename: string = 'chromasnap-palette.png'): Promise<void> {
+export async function exportAsPng(elementId: string, filename: string = 'paletparsr-palette.png'): Promise<void> {
   const canvas = await renderExportCanvas(elementId);
   const blob = await canvasToBlob(canvas, 'image/png');
   downloadBlob(blob, filename);
@@ -251,7 +251,7 @@ export async function exportAsPng(elementId: string, filename: string = 'chromas
 /**
  * Export palette as JPG
  */
-export async function exportAsJpg(elementId: string, filename: string = 'chromasnap-palette.jpg'): Promise<void> {
+export async function exportAsJpg(elementId: string, filename: string = 'paletparsr-palette.jpg'): Promise<void> {
   const canvas = await renderExportCanvas(elementId);
   const blob = await canvasToBlob(canvas, 'image/jpeg', 0.95);
   downloadBlob(blob, filename);
@@ -260,7 +260,7 @@ export async function exportAsJpg(elementId: string, filename: string = 'chromas
 /**
  * Export palette as PDF
  */
-export async function exportAsPdf(elementId: string, filename: string = 'chromasnap-palette.pdf'): Promise<void> {
+export async function exportAsPdf(elementId: string, filename: string = 'paletparsr-palette.pdf'): Promise<void> {
   const canvas = await renderExportCanvas(elementId);
   const imgData = canvas.toDataURL('image/jpeg', 1.0);
 
@@ -295,25 +295,25 @@ export async function exportAsPdf(elementId: string, filename: string = 'chromas
 /**
  * Export palette as standalone HTML
  */
-export function exportAsHtml(colors: ExtractedColor[], filename: string = 'chromasnap-palette.html'): void {
+export function exportAsHtml(colors: ExtractedColor[], filename: string = 'paletparsr-palette.html'): void {
   const htmlContent = generateHtmlExport(colors);
   const blob = new Blob([htmlContent], { type: 'text/html' });
   downloadBlob(blob, filename);
 }
 
-export function exportAsCss(colors: ExtractedColor[], filename: string = 'chromasnap-palette.css'): void {
+export function exportAsCss(colors: ExtractedColor[], filename: string = 'paletparsr-palette.css'): void {
   const content = `${generateCssVariables(colors)}\n`;
   const blob = new Blob([content], { type: 'text/css' });
   downloadBlob(blob, filename);
 }
 
-export function exportAsScss(colors: ExtractedColor[], filename: string = 'chromasnap-palette.scss'): void {
+export function exportAsScss(colors: ExtractedColor[], filename: string = 'paletparsr-palette.scss'): void {
   const content = `${generateScssVariables(colors)}\n`;
   const blob = new Blob([content], { type: 'text/x-scss' });
   downloadBlob(blob, filename);
 }
 
-export function exportAsTailwind(colors: ExtractedColor[], filename: string = 'chromasnap-tailwind-colors.js'): void {
+export function exportAsTailwind(colors: ExtractedColor[], filename: string = 'paletparsr-tailwind-colors.js'): void {
   const content = `${generateTailwindConfig(colors)}\n`;
   const blob = new Blob([content], { type: 'text/javascript' });
   downloadBlob(blob, filename);
