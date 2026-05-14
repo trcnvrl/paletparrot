@@ -13,6 +13,6 @@ export interface ExtractedColor {
   population?: number;
 }
 
-export type ExtractionMode = 'auto' | 'manual';
+export type ExtractionMode = 'auto' | 'manual' | 'eyedropper';
 
 export type ExportFormat = 'pdf' | 'html' | 'jpg' | 'png';

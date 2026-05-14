@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Palette } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { ImageUploader } from '@/components/image-uploader';
@@ -31,8 +31,25 @@ export default function Home() {
     setError(null);
   };
 
+  const handleModeChange = useCallback((mode: ExtractionMode) => {
+    setExtractionMode(mode);
+    setExtractedColors([]);
+    setError(null);
+  }, []);
+
+  const handlePickColor = useCallback((color: ExtractedColor) => {
+    setExtractedColors((currentColors) => [...currentColors, color]);
+    setError(null);
+  }, []);
+
+  const handleRemoveColor = useCallback((indexToRemove: number) => {
+    setExtractedColors((currentColors) =>
+      currentColors.filter((_, index) => index !== indexToRemove)
+    );
+  }, []);
+
   const handleExtractColors = async () => {
-    if (!uploadedImage) return;
+    if (!uploadedImage || extractionMode === 'eyedropper') return;
 
     setIsExtracting(true);
     setError(null);
@@ -93,7 +110,13 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Left Column: Image Preview */}
             <div className="space-y-6">
-              <ImagePreview image={uploadedImage} onRemove={handleRemoveImage} />
+              <ImagePreview
+                key={`${uploadedImage.src}-${extractionMode}`}
+                image={uploadedImage}
+                mode={extractionMode}
+                onRemove={handleRemoveImage}
+                onPickColor={handlePickColor}
+              />
               
               {extractedColors.length > 0 && (
                 <ExportActions colors={extractedColors} />
@@ -105,7 +128,8 @@ export default function Home() {
               <ExtractionControls
                 mode={extractionMode}
                 colorCount={colorCount}
-                onModeChange={setExtractionMode}
+                pickedColorCount={extractedColors.length}
+                onModeChange={handleModeChange}
                 onColorCountChange={setColorCount}
                 onExtract={handleExtractColors}
                 isExtracting={isExtracting}
@@ -124,7 +148,7 @@ export default function Home() {
         {/* Palette Display */}
         {extractedColors.length > 0 && (
           <div className="pt-8">
-            <PaletteGrid colors={extractedColors} />
+            <PaletteGrid colors={extractedColors} onRemoveColor={handleRemoveColor} />
           </div>
         )}
       </main>

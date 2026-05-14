@@ -6,6 +6,7 @@ import type { ExtractionMode } from '@/lib/types';
 interface ExtractionControlsProps {
   mode: ExtractionMode;
   colorCount: number;
+  pickedColorCount: number;
   onModeChange: (mode: ExtractionMode) => void;
   onColorCountChange: (count: number) => void;
   onExtract: () => void;
@@ -16,6 +17,7 @@ interface ExtractionControlsProps {
 export function ExtractionControls({
   mode,
   colorCount,
+  pickedColorCount,
   onModeChange,
   onColorCountChange,
   onExtract,
@@ -73,11 +75,26 @@ export function ExtractionControls({
           >
             Manual
           </button>
+          <button
+            onClick={() => onModeChange('eyedropper')}
+            className={`
+              flex-1 px-4 py-3 rounded-lg font-medium transition-all
+              ${mode === 'eyedropper'
+                ? 'bg-blue-500 text-white shadow-md'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+              }
+            `}
+            disabled={isExtracting}
+          >
+            Eyedropper
+          </button>
         </div>
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
           {mode === 'auto' 
             ? 'Automatically detect all unique colors in simple swatches'
-            : 'Select the number of colors to extract from complex images'
+            : mode === 'manual'
+              ? 'Select the number of colors to extract from complex images'
+              : 'Click directly on the image to pick exact pixel colors one by one'
           }
         </p>
       </div>
@@ -115,13 +132,31 @@ export function ExtractionControls({
         </div>
       )}
 
-      <button
-        onClick={onExtract}
-        disabled={!hasImage || isExtracting}
-        className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 dark:disabled:from-gray-700 dark:disabled:to-gray-600 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
-      >
-        {isExtracting ? 'Extracting Colors...' : 'Extract Palette'}
-      </button>
+      {mode === 'eyedropper' ? (
+        <div className="px-4 py-3 rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900">
+          <div className="flex items-center justify-between gap-4">
+            <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+              Pick colors from the image preview
+            </span>
+            <span className="text-sm text-blue-600 dark:text-blue-400">
+              {pickedColorCount} {pickedColorCount === 1 ? 'color picked' : 'colors picked'}
+            </span>
+          </div>
+          {!hasImage && (
+            <p className="mt-2 text-xs text-blue-600 dark:text-blue-400">
+              Upload an image to start picking colors.
+            </p>
+          )}
+        </div>
+      ) : (
+        <button
+          onClick={onExtract}
+          disabled={!hasImage || isExtracting}
+          className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 dark:disabled:from-gray-700 dark:disabled:to-gray-600 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
+        >
+          {isExtracting ? 'Extracting Colors...' : 'Extract Palette'}
+        </button>
+      )}
     </div>
   );
 }

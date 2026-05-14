@@ -6,9 +6,10 @@ import { formatRgb, formatCmyk } from '@/lib/color-utils';
 
 interface PaletteGridProps {
   colors: ExtractedColor[];
+  onRemoveColor?: (index: number) => void;
 }
 
-export function PaletteGrid({ colors }: PaletteGridProps) {
+export function PaletteGrid({ colors, onRemoveColor }: PaletteGridProps) {
   if (colors.length === 0) {
     return null;
   }
@@ -30,7 +31,11 @@ export function PaletteGrid({ colors }: PaletteGridProps) {
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {colors.map((color, index) => (
-            <ColorSwatchCard key={`${color.hex}-${index}`} color={color} />
+            <ColorSwatchCard
+              key={`${color.hex}-${index}`}
+              color={color}
+              onRemove={onRemoveColor ? () => onRemoveColor(index) : undefined}
+            />
           ))}
         </div>
       </div>
