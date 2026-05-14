@@ -149,7 +149,7 @@ export function ColorSwatchCard({ color, suggestionsId, onLabelChange, onRemove 
 
       {copiedValue && (
         <div className="pointer-events-none absolute inset-x-4 bottom-4 animate-flash rounded-2xl border border-emerald-400/25 bg-emerald-400/12 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.24em] text-emerald-200 dark:text-emerald-100">
-          Copied {copiedValue}
+          Copied: {copiedValue}
         </div>
       )}
     </div>

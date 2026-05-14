@@ -2,14 +2,14 @@
 
 Extract color palettes from any image.
 
-PaletParsr is a responsive palette extraction app for designers and developers. Upload an image, extract a polished palette, rename swatches, inspect color values, and export the results as images or production-ready code tokens.
+PaletParsr is a palette extraction app for developers and designers. Upload an image, extract colors, rename swatches, inspect color values, and export the result as image files or code.
 
 ## Features
 
 - Upload images (`JPG`, `PNG`, `SVG`, `WebP`, `GIF`) via drag & drop or file picker
 - Three extraction modes:
-  - **Auto-detect** for exact colors from simple palettes
-  - **Manual** for photo-friendly extraction with ColorThief
+  - **Auto-detect** for exact colors in simple images
+  - **Manual** for dominant colors in complex images
   - **Eyedropper** to click and pick exact pixels
 - HEX, RGB, and CMYK values for every color
 - Editable color labels such as `primary`, `secondary`, and `accent`

@@ -46,7 +46,7 @@ export function ExtractionControls({
     <div className="w-full space-y-7">
       <div>
         <label className="mb-3 block text-xs font-semibold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
-          Extraction Mode
+          Extraction mode
         </label>
         <div className="glass-subpanel grid gap-2 rounded-[1.4rem] p-2 sm:grid-cols-3">
           <button
@@ -91,10 +91,10 @@ export function ExtractionControls({
         </div>
         <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
           {mode === 'auto' 
-            ? 'Automatically detect all unique colors in simple swatches'
+            ? 'Find exact colors in simple images with flat areas.'
             : mode === 'manual'
-              ? 'Select the number of colors to extract from complex images'
-              : 'Click directly on the image to pick exact pixel colors one by one'
+              ? 'Choose how many dominant colors to pull from the image.'
+              : 'Click the image to pick exact pixel colors one by one.'
           }
         </p>
       </div>
@@ -103,7 +103,7 @@ export function ExtractionControls({
         <div className="glass-subpanel rounded-[1.5rem] p-5">
           <div className="mb-4 flex items-center justify-between">
             <label htmlFor="color-count" className="block text-xs font-semibold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
-              Number of Colors
+              Number of colors
             </label>
             <input
               type="number"
@@ -158,7 +158,7 @@ export function ExtractionControls({
             boxShadow: '0 24px 60px rgba(99, 102, 241, 0.3)',
           }}
         >
-          {isExtracting ? 'Extracting Colors...' : 'Extract Palette'}
+          {isExtracting ? 'Extracting colors...' : 'Extract colors'}
         </button>
       )}
     </div>

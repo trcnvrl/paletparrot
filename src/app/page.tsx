@@ -151,7 +151,7 @@ export default function Home() {
                   PaletParsr
                 </p>
                 <p className="text-xs uppercase tracking-[0.28em] text-cyan-100/60">
-                  Reactive palette intelligence
+                  Image color palette tool
                 </p>
               </div>
             </div>
@@ -165,15 +165,14 @@ export default function Home() {
               <div className="space-y-6">
                 <div className="glass-pill inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-cyan-100/80">
                   <Sparkles className="h-4 w-4" />
-                  Next-gen color extraction
+                  Extract colors from images
                 </div>
                 <div className="space-y-4">
                   <h1 className="font-display max-w-4xl text-4xl font-bold leading-none sm:text-5xl lg:text-7xl">
-                    <span className="text-gradient-brand">Palette creation with kinetic glass energy.</span>
+                    <span className="text-gradient-brand">Extract color palettes from any image.</span>
                   </h1>
                   <p className="max-w-2xl text-base leading-7 text-slate-700 sm:text-lg dark:text-slate-300">
-                    Upload any image, reveal refined palettes, and export production-ready tokens in a
-                    workspace that reacts to every extracted hue in real time.
+                    Upload an image, get the colors, label them, and export the palette as code or an image.
                   </p>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-3">
@@ -185,16 +184,16 @@ export default function Home() {
                   <div className="glass-subpanel rounded-2xl px-4 py-4">
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">Exports</p>
                     <p className="font-display mt-2 text-2xl text-slate-950 dark:text-white">7</p>
-                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Images, code, config</p>
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">PDF, PNG, JPG, HTML, CSS, SCSS, Tailwind</p>
                   </div>
                   <div className="glass-subpanel rounded-2xl px-4 py-4">
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-                      Live glow
+                      Picked colors
                     </p>
                     <p className="font-display mt-2 text-2xl text-slate-950 dark:text-white">
                       {Math.max(extractedColors.length, 2)}
                     </p>
-                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Ambient color fields</p>
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Shown in the current palette</p>
                   </div>
                 </div>
               </div>
@@ -212,14 +211,13 @@ export default function Home() {
                   </div>
                   <div className="space-y-2">
                     <p className="text-sm font-semibold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
-                      Visual system
+                      What you can do
                     </p>
                     <h2 className="font-display text-2xl font-semibold text-slate-950 dark:text-white">
-                      Dark-first, reactive, export-ready
+                      Pick colors your way
                     </h2>
                     <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">
-                      Every key surface now uses layered translucency, responsive glow, and motion tuned
-                      to the active palette.
+                      Use auto-detect for simple images, extract dominant colors from photos, or click with the eyedropper.
                     </p>
                   </div>
                 </div>
@@ -279,7 +277,7 @@ export default function Home() {
 
                 <div className="glass-subpanel rounded-[1.6rem] p-5">
                   <p className="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-                    Active accents
+                    Current palette preview
                   </p>
                   <div className="mt-4 flex items-center gap-3">
                     {[accentColor, secondaryAccent, tertiaryAccent].map((color) => (
@@ -313,7 +311,7 @@ export default function Home() {
               Built with Next.js, TypeScript, and Tailwind CSS
             </p>
             <p className="text-xs uppercase tracking-[0.28em] text-slate-500 dark:text-slate-500">
-              Reactive UI • Glass surfaces • Motion tuned to palette data
+              Upload image • Extract colors • Export palette
             </p>
           </div>
         </footer>

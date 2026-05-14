@@ -128,7 +128,7 @@ export function ImageUploader({ onImageUpload }: ImageUploaderProps) {
               or click to browse
             </p>
             <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
-              Drop in JPG, PNG, SVG, WebP, or GIF and let PaletParsr build a reactive palette.
+              Upload a JPG, PNG, SVG, WebP, or GIF to extract colors from the image.
             </p>
             <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
               Supports JPG, PNG, SVG, WebP, GIF

@@ -217,10 +217,10 @@ export function ExportActions({ colors, disabled = false }: ExportActionsProps) 
     <div className="w-full space-y-5">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-          Export suite
+          Export
         </p>
         <h3 className="font-display text-2xl font-semibold text-slate-950 dark:text-slate-50">
-        Export Palette
+          Export palette
         </h3>
       </div>
 
@@ -229,7 +229,7 @@ export function ExportActions({ colors, disabled = false }: ExportActionsProps) 
           <div className="mb-3 flex items-center gap-3">
             <div className="h-px flex-1 bg-white/10" />
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Image Exports
+            Image files
             </p>
             <div className="h-px flex-1 bg-white/10" />
           </div>
@@ -244,7 +244,7 @@ export function ExportActions({ colors, disabled = false }: ExportActionsProps) 
           <div className="flex items-center gap-3">
             <div className="h-px flex-1 bg-white/10" />
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Code Exports
+            Code files
             </p>
             <div className="h-px flex-1 bg-white/10" />
           </div>
@@ -270,7 +270,7 @@ export function ExportActions({ colors, disabled = false }: ExportActionsProps) 
 
       {isDisabled && (
         <p className="text-sm text-slate-600 dark:text-slate-300">
-          Extract colors first to enable export options
+          Extract colors first to enable exports.
         </p>
       )}
 

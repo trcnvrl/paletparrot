@@ -20,10 +20,10 @@ export function PaletteGrid({ colors, onLabelChange, onRemoveColor }: PaletteGri
       <div className="flex items-center justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
-            Palette system
+            Palette
           </p>
           <h2 className="font-display text-3xl font-bold text-slate-950 dark:text-slate-50">
-          Extracted Palette
+            Extracted colors
           </h2>
         </div>
         <span className="glass-pill rounded-full px-4 py-2 text-sm text-slate-700 dark:text-slate-200">
@@ -56,7 +56,7 @@ export function PaletteGrid({ colors, onLabelChange, onRemoveColor }: PaletteGri
           fontFamily: 'system-ui, -apple-system, sans-serif'
         }}>
           <h1 style={{ fontSize: '32px', marginBottom: '32px', color: '#111827' }}>
-            PaletParsr Color Palette
+            PaletParsr palette
           </h1>
           <div style={{ 
             display: 'grid', 

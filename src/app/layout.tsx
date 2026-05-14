@@ -19,8 +19,8 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: 'PaletParsr - Color Palette Generator',
-  description: 'Extract beautiful color palettes from images with PaletParsr',
+  title: 'PaletParsr - Extract Color Palettes from Images',
+  description: 'Upload an image, extract colors, label them, and export the palette as CSS, SCSS, Tailwind, PDF, PNG, or JPG.',
 };
 
 export default function RootLayout({
