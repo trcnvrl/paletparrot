@@ -7,7 +7,7 @@ interface BackgroundGlowProps {
   extractedColors: ExtractedColor[];
 }
 
-const DEFAULT_GLOW_COLORS = ['#7C3AED', '#22D3EE', '#F97316', '#F43F5E'];
+const DEFAULT_GLOW_COLORS = ['#E8000A', '#0015E8', '#1A0066', '#3B5500'];
 
 const BLOB_POSITIONS = [
   {
@@ -35,7 +35,7 @@ const BLOB_POSITIONS = [
 function withAlpha(hex: string, alpha: number) {
   const normalized = hex.replace('#', '');
   if (normalized.length !== 6) {
-    return `rgba(124, 58, 237, ${alpha})`;
+    return `rgba(232, 0, 10, ${alpha})`;
   }
 
   const red = Number.parseInt(normalized.slice(0, 2), 16);
@@ -60,8 +60,8 @@ export function BackgroundGlow({ extractedColors }: BackgroundGlowProps) {
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_32%),linear-gradient(135deg,#040611_0%,#09111f_48%,#030611_100%)] dark:bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_32%),linear-gradient(135deg,#040611_0%,#09111f_48%,#030611_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(4,6,17,0.28),rgba(4,6,17,0.82))] dark:bg-[linear-gradient(to_bottom,rgba(4,6,17,0.28),rgba(4,6,17,0.82))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(26,0,102,0.14),transparent_32%),linear-gradient(135deg,#0E0500_0%,#1A0A00_48%,#0A0300_100%)] dark:bg-[radial-gradient(circle_at_top,rgba(26,0,102,0.14),transparent_32%),linear-gradient(135deg,#0E0500_0%,#1A0A00_48%,#0A0300_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(14,5,0,0.22),rgba(14,5,0,0.78))] dark:bg-[linear-gradient(to_bottom,rgba(14,5,0,0.22),rgba(14,5,0,0.78))]" />
       {BLOB_POSITIONS.map((blob, index) => (
         <div
           key={`${palette[index]}-${index}`}

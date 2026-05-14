@@ -19,8 +19,19 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: 'PaletParsr - Extract Color Palettes from Images',
+  title: 'PaletParrot - Extract Color Palettes from Images',
   description: 'Upload an image, extract colors, label them, and export the palette as CSS, SCSS, Tailwind, PDF, PNG, or JPG.',
+  icons: {
+    icon: '/logo-icon-color.svg',
+    shortcut: '/logo-icon-color.svg',
+    apple: '/logo-icon-color.svg',
+  },
+  applicationName: 'PaletParrot',
+  openGraph: {
+    title: 'PaletParrot - Extract Color Palettes from Images',
+    description: 'Upload an image, extract colors, label them, and export the palette as CSS, SCSS, Tailwind, PDF, PNG, or JPG.',
+    siteName: 'PaletParrot',
+  },
 };
 
 export default function RootLayout({

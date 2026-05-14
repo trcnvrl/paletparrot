@@ -1,7 +1,8 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { Palette, Sparkles, WandSparkles } from 'lucide-react';
+import Image from 'next/image';
+import { Sparkles, WandSparkles } from 'lucide-react';
 import { BackgroundGlow } from '@/components/background-glow';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { ImageUploader } from '@/components/image-uploader';
@@ -120,37 +121,33 @@ export default function Home() {
     }
   };
 
-  const accentColor = extractedColors[0]?.hex ?? '#67E8F9';
-  const secondaryAccent = extractedColors[1]?.hex ?? '#A78BFA';
-  const tertiaryAccent = extractedColors[2]?.hex ?? '#F472B6';
+  const accentColor = extractedColors[0]?.hex ?? '#E8000A';
+  const secondaryAccent = extractedColors[1]?.hex ?? '#1A0066';
+  const tertiaryAccent = extractedColors[2]?.hex ?? '#0015E8';
 
   return (
     <div className="relative isolate min-h-screen overflow-hidden">
       <BackgroundGlow extractedColors={extractedColors} />
 
       <div className="relative z-10 flex min-h-screen flex-col">
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-slate-950/35 backdrop-blur-2xl">
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-stone-950/40 backdrop-blur-2xl">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-            <div className="flex items-center gap-4">
-              <div className="relative">
-                <div
-                  className="absolute inset-0 rounded-[1.4rem] blur-xl"
-                  style={{
-                    background: `linear-gradient(135deg, ${withAlpha(accentColor, 0.42)}, ${withAlpha(
-                      secondaryAccent,
-                      0.42
-                    )})`,
-                  }}
+            <div className="flex items-center gap-3">
+              <div className="relative flex h-11 w-11 items-center justify-center">
+                <Image
+                  src="/logo-icon-color.svg"
+                  alt="PaletParrot logo"
+                  width={44}
+                  height={44}
+                  className="h-11 w-11"
+                  priority
                 />
-                <div className="glass-pill relative flex h-12 w-12 items-center justify-center rounded-[1.4rem]">
-                  <Palette className="h-6 w-6 text-white" />
-                </div>
               </div>
               <div>
-                <p className="font-display text-xl font-bold uppercase tracking-[0.22em] text-white/72">
-                  PaletParsr
+                <p className="font-sans text-xl font-bold tracking-tight text-white">
+                  PaletParrot
                 </p>
-                <p className="text-xs uppercase tracking-[0.28em] text-cyan-100/60">
+                <p className="text-xs uppercase tracking-[0.28em] text-white/55">
                   Image color palette tool
                 </p>
               </div>
@@ -305,7 +302,7 @@ export default function Home() {
           )}
         </main>
 
-        <footer className="relative z-10 mt-auto border-t border-white/10 bg-slate-950/22 backdrop-blur-2xl">
+        <footer className="relative z-10 mt-auto border-t border-white/10 bg-stone-950/25 backdrop-blur-2xl">
           <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-center sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:text-left">
             <p className="text-sm text-slate-600 dark:text-slate-400">
               Built with Next.js, TypeScript, and Tailwind CSS

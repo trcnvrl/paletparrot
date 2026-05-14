@@ -1,8 +1,8 @@
-# PaletParsr
+# PaletParrot
 
 Extract color palettes from any image.
 
-PaletParsr is a palette extraction app for developers and designers. Upload an image, extract colors, rename swatches, inspect color values, and export the result as image files or code.
+PaletParrot is a palette extraction app for developers and designers. Upload an image, extract colors, rename swatches, inspect color values, and export the result as image files or code.
 
 ## Features
 

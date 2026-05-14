@@ -56,7 +56,7 @@ export function PaletteGrid({ colors, onLabelChange, onRemoveColor }: PaletteGri
           fontFamily: 'system-ui, -apple-system, sans-serif'
         }}>
           <h1 style={{ fontSize: '32px', marginBottom: '32px', color: '#111827' }}>
-            PaletParsr palette
+            PaletParrot palette
           </h1>
           <div style={{ 
             display: 'grid', 
