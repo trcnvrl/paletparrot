@@ -6,3 +6,9 @@ services:
     restart: always
     environment:
       - NODE_ENV=production
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true
