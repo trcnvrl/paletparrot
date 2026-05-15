@@ -125,8 +125,8 @@ function CodePreviewModal({
               disabled={exporting !== null}
               className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
               style={{
-                background: 'linear-gradient(135deg, #E8000A 0%, #1A0066 52%, #0015E8 100%)',
-                boxShadow: '0 16px 36px rgba(26, 0, 102, 0.2)',
+                background: 'linear-gradient(135deg, #FF3366 0%, #5D5FEF 52%, #0066FF 100%)',
+                boxShadow: '0 16px 36px rgba(93, 95, 239, 0.2)',
               }}
             >
               <Download className="h-4 w-4" />

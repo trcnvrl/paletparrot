@@ -35,7 +35,7 @@ function withAlpha(hex: string, alpha: number) {
 export function ImagePreview({
   image,
   mode,
-  accentColor = '#E8000A',
+  accentColor = '#FF3366',
   onRemove,
   onPickColor,
 }: ImagePreviewProps) {

@@ -139,12 +139,12 @@ export default function Home() {
     }
   };
 
-  const accentColor = extractedColors[0]?.hex ?? '#E8000A';
-  const secondaryAccent = extractedColors[1]?.hex ?? '#1A0066';
-  const tertiaryAccent = extractedColors[2]?.hex ?? '#0015E8';
+  const accentColor = extractedColors[0]?.hex ?? '#FF3366';
+  const secondaryAccent = extractedColors[1]?.hex ?? '#0066FF';
+  const tertiaryAccent = extractedColors[2]?.hex ?? '#FFD100';
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#fffdf9_0%,#f7f4ec_100%)]">
+    <div className="min-h-screen bg-transparent">
       <div className="flex min-h-screen flex-col">
         <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/92 backdrop-blur-md">
           <div className="flex w-full items-center px-4 py-4 sm:px-6 lg:px-8">
@@ -164,14 +164,14 @@ export default function Home() {
             <div className="mx-auto max-w-6xl space-y-8">
               <div className="text-center">
                 <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-strong)] bg-[color:var(--surface-soft)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-slate-600">
-                  <Sparkles className="h-4 w-4 text-[var(--brand-red)]" />
+                  <Sparkles className="h-4 w-4 text-[var(--brand-blue)]" />
                   Upload, extract, label, export
                 </div>
               </div>
 
               <div className="space-y-5 text-center">
                 <div className="mx-auto space-y-4">
-                  <h1 className="font-display mx-auto max-w-5xl text-4xl font-semibold leading-[0.95] text-slate-950 sm:text-5xl lg:text-6xl xl:text-7xl">
+                  <h1 className="font-display mx-auto max-w-5xl text-4xl font-semibold leading-[0.95] text-transparent bg-clip-text bg-[linear-gradient(135deg,var(--brand-blue),var(--brand-purple),var(--brand-red))] sm:text-5xl lg:text-6xl xl:text-7xl">
                     Clean color extraction for designers, developers, and brand teams.
                   </h1>
                   <p className="mx-auto max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
@@ -180,18 +180,18 @@ export default function Home() {
                 </div>
 
                 <div className="mx-auto grid max-w-3xl gap-4 md:grid-cols-3">
-                  <div className="subpanel space-y-2 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Modes</p>
+                  <div className="subpanel space-y-2 p-4 border-t-4 border-t-[var(--brand-blue)]">
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--brand-blue)]">Modes</p>
                     <p className="font-display text-3xl text-slate-950">3</p>
                     <p className="text-sm leading-6 text-slate-600">Auto-detect, manual extraction, and eyedropper picking.</p>
                   </div>
-                  <div className="subpanel space-y-2 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Exports</p>
+                  <div className="subpanel space-y-2 p-4 border-t-4 border-t-[var(--brand-red)]">
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--brand-red)]">Exports</p>
                     <p className="font-display text-3xl text-slate-950">7</p>
                     <p className="text-sm leading-6 text-slate-600">PDF, PNG, JPG, HTML, CSS, SCSS, and Tailwind output.</p>
                   </div>
-                  <div className="subpanel space-y-2 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Palette</p>
+                  <div className="subpanel space-y-2 p-4 border-t-4 border-t-[var(--brand-yellow)]">
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--brand-yellow)]">Palette</p>
                     <p className="font-display text-3xl text-slate-950">{extractedColors.length}</p>
                     <p className="text-sm leading-6 text-slate-600">Colors currently ready to label, copy, or export.</p>
                   </div>
@@ -254,7 +254,7 @@ export default function Home() {
                     {[accentColor, secondaryAccent, tertiaryAccent].map((color) => (
                       <div
                         key={color}
-                        className="h-14 flex-1 rounded-2xl border border-white"
+                        className="h-14 flex-1 rounded-2xl border border-white/60"
                         style={{
                           backgroundColor: color,
                           boxShadow: `0 16px 36px ${withAlpha(color, 0.18)}`,
@@ -276,9 +276,17 @@ export default function Home() {
           )}
         </main>
 
-        <footer className="mt-auto border-t border-slate-200 bg-white/80">
-          <div className="px-4 py-5 text-center sm:px-6 lg:px-8">
+        <footer className="mt-auto border-t border-slate-200/60 bg-white/40 backdrop-blur-md">
+          <div className="flex flex-col items-center justify-between gap-4 px-4 py-6 sm:flex-row sm:px-6 lg:px-8">
             <p className="text-sm text-slate-500">© 2026 PaletParrot</p>
+            <a 
+              href="https://creativiawebagency.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group flex items-center gap-1.5 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
+            >
+              by <span style={{ color: '#FE5000' }} className="font-bold tracking-tight">CREATIVIA</span>
+            </a>
           </div>
         </footer>
       </div>

@@ -97,7 +97,7 @@ export function ImageUploader({ onImageUpload }: ImageUploaderProps) {
           }
         `}
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.8),transparent_45%)] opacity-80" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,102,255,0.08),transparent_50%)] opacity-100" />
         <div className="pointer-events-none absolute inset-[1px] rounded-[calc(2rem-1px)] border border-white/70" />
 
         <input

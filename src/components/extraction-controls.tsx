@@ -54,7 +54,7 @@ export function ExtractionControls({
             className={`
               rounded-[1rem] px-4 py-3.5 text-sm font-semibold transition-all duration-300
               ${mode === 'auto'
-                ? 'bg-[linear-gradient(135deg,#E8000A_0%,#1A0066_56%,#0015E8_100%)] text-white shadow-[0_14px_32px_rgba(26,0,102,0.24)]'
+                ? 'bg-[linear-gradient(135deg,#FF3366_0%,#5D5FEF_56%,#0066FF_100%)] text-white shadow-[0_14px_32px_rgba(93,95,239,0.24)]'
                 : 'text-slate-700 hover:bg-white'
               }
             `}
@@ -67,7 +67,7 @@ export function ExtractionControls({
             className={`
               rounded-[1rem] px-4 py-3.5 text-sm font-semibold transition-all duration-300
               ${mode === 'manual'
-                ? 'bg-[linear-gradient(135deg,#E8000A_0%,#1A0066_56%,#0015E8_100%)] text-white shadow-[0_14px_32px_rgba(26,0,102,0.24)]'
+                ? 'bg-[linear-gradient(135deg,#FF3366_0%,#5D5FEF_56%,#0066FF_100%)] text-white shadow-[0_14px_32px_rgba(93,95,239,0.24)]'
                 : 'text-slate-700 hover:bg-white'
               }
             `}
@@ -80,7 +80,7 @@ export function ExtractionControls({
             className={`
               rounded-[1rem] px-4 py-3.5 text-sm font-semibold transition-all duration-300
               ${mode === 'eyedropper'
-                ? 'bg-[linear-gradient(135deg,#E8000A_0%,#1A0066_56%,#0015E8_100%)] text-white shadow-[0_14px_32px_rgba(26,0,102,0.24)]'
+                ? 'bg-[linear-gradient(135deg,#FF3366_0%,#5D5FEF_56%,#0066FF_100%)] text-white shadow-[0_14px_32px_rgba(93,95,239,0.24)]'
                 : 'text-slate-700 hover:bg-white'
               }
             `}
@@ -154,8 +154,8 @@ export function ExtractionControls({
           disabled={!hasImage || isExtracting}
           className="w-full rounded-[1.4rem] px-6 py-4 text-sm font-semibold uppercase tracking-[0.28em] text-white transition-all duration-300 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45"
           style={{
-            background: 'linear-gradient(135deg, #E8000A 0%, #1A0066 52%, #0015E8 100%)',
-            boxShadow: '0 20px 42px rgba(26, 0, 102, 0.22)',
+            background: 'linear-gradient(135deg, #FF3366 0%, #5D5FEF 52%, #0066FF 100%)',
+            boxShadow: '0 20px 42px rgba(93, 95, 239, 0.22)',
           }}
         >
           {isExtracting ? 'Extracting colors...' : 'Extract colors'}

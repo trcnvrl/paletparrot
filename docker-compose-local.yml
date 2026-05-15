@@ -1,0 +1,20 @@
+services:
+  paletparrot-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: paletparrot-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      # Anonymous volumes to prevent host directories from overwriting container directories
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      # Enable polling for hot-reloading to work reliably on Windows/macOS volume mounts
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+      - NEXT_TELEMETRY_DISABLED=1
+
