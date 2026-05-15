@@ -8,6 +8,7 @@ import { ImagePreview } from '@/components/image-preview';
 import { ExtractionControls } from '@/components/extraction-controls';
 import { PaletteGrid } from '@/components/palette-grid';
 import { ExportActions } from '@/components/export-actions';
+import { NewsletterForm } from '@/components/newsletter-form';
 import type { UploadedImage, ExtractedColor, ExtractionMode } from '@/lib/types';
 import { extractColorsAuto, extractColorsManual } from '@/lib/color-extraction';
 
@@ -146,19 +147,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-transparent">
       <div className="flex min-h-screen flex-col">
-        <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/92 backdrop-blur-md">
-          <div className="flex w-full items-center px-4 py-4 sm:px-6 lg:px-8">
-            <Image
-              src="/logo-header.png"
-              alt="PaletParrot"
-              width={400}
-              height={100}
-              className="h-14 w-auto sm:h-16 md:h-[72px]"
-              preload
-            />
-          </div>
-        </header>
-
         <main className="flex w-full flex-1 flex-col gap-8 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
           <section className="panel overflow-hidden px-5 py-6 sm:px-7 sm:py-7">
             <div className="mx-auto max-w-6xl space-y-8">
@@ -198,7 +186,22 @@ export default function Home() {
                 </div>
               </div>
 
-              {!uploadedImage && <ImageUploader onImageUpload={handleImageUpload} />}
+
+              {!uploadedImage && (
+                <div className="space-y-12">
+                  <ImageUploader onImageUpload={handleImageUpload} />
+                  
+                  <div className="mx-auto max-w-md space-y-6 pt-12 border-t border-slate-200/60">
+                    <div className="space-y-2 text-center">
+                      <h3 className="text-lg font-semibold text-slate-900">Get early access to Pro 🚀</h3>
+                      <p className="text-sm text-slate-500">
+                        Be the first to try our upcoming AI-powered features.
+                      </p>
+                    </div>
+                    <NewsletterForm />
+                  </div>
+                </div>
+              )}
             </div>
           </section>
 
@@ -276,19 +279,6 @@ export default function Home() {
           )}
         </main>
 
-        <footer className="mt-auto border-t border-slate-200/60 bg-white/40 backdrop-blur-md">
-          <div className="flex flex-col items-center justify-between gap-4 px-4 py-6 sm:flex-row sm:px-6 lg:px-8">
-            <p className="text-sm text-slate-500">© 2026 PaletParrot</p>
-            <a 
-              href="https://creativiawebagency.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
-            >
-              by <span style={{ color: '#FE5000' }} className="font-bold tracking-tight">CREATIVIA</span>
-            </a>
-          </div>
-        </footer>
       </div>
     </div>
   );
